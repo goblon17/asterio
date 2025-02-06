@@ -1,9 +1,18 @@
-[gd_scene load_steps=8 format=3 uid="uid://buix4xavg5iwb"]
+[gd_scene load_steps=18 format=3 uid="uid://buix4xavg5iwb"]
 
 [ext_resource type="Texture2D" uid="uid://4sypjjj1lyxt" path="res://Textures/skybox.png" id="1_mnvyb"]
 [ext_resource type="PackedScene" uid="uid://cekoxcdqlj6ky" path="res://Prefabs/player.tscn" id="1_waas6"]
 [ext_resource type="PackedScene" uid="uid://bbc4sotu2xrpr" path="res://Prefabs/asteroid.tscn" id="3_d8cms"]
 [ext_resource type="Script" path="res://Scripts/AsteroidSpawner.cs" id="3_ic346"]
+[ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="5_clemr"]
+[ext_resource type="ArrayMesh" uid="uid://ctdrfcmehmkoy" path="res://Models/asteroid2.res" id="6_esgal"]
+[ext_resource type="ArrayMesh" uid="uid://cv1sbpc6p3inv" path="res://Models/asteroid3.res" id="7_oboxl"]
+[ext_resource type="ArrayMesh" uid="uid://bltf4m1lfo6av" path="res://Models/asteroid4.res" id="8_2mb8p"]
+[ext_resource type="Shape3D" uid="uid://bvr4qbrbkxc3y" path="res://Models/asteroid1.shape" id="9_1f0j0"]
+[ext_resource type="Shape3D" uid="uid://d26a3ddvd7m3g" path="res://Models/asteroid2.shape" id="10_2uh12"]
+[ext_resource type="Shape3D" uid="uid://c1i10m0bfiuin" path="res://Models/asteroid3.shape" id="11_vk5o5"]
+[ext_resource type="Shape3D" uid="uid://254r1vmbv1v2" path="res://Models/asteroid4.shape" id="12_6rfj8"]
+[ext_resource type="Script" path="res://Scripts/Health.cs" id="13_2ee0y"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_duvgi"]
 panorama = ExtResource("1_mnvyb")
@@ -17,6 +26,9 @@ sky = SubResource("Sky_j600n")
 sky_rotation = Vector3(0, -1.32296, 0)
 tonemap_mode = 2
 glow_enabled = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_cauil"]
+size = Vector3(100, 100, 1)
 
 [node name="Gameplay" type="Node3D"]
 
@@ -34,5 +46,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 192.262)
 script = ExtResource("3_ic346")
 cooldown = 5.0
 speed = 10.0
+rotationSpeedRange = Vector2(-5, 5)
 halfExtents = Vector2(20, 10)
 asteroidPrefab = ExtResource("3_d8cms")
+possibleMehses = Array[ArrayMesh]([ExtResource("5_clemr"), ExtResource("6_esgal"), ExtResource("7_oboxl"), ExtResource("8_2mb8p")])
+possibleCollisions = Array[ConcavePolygonShape3D]([ExtResource("9_1f0j0"), ExtResource("10_2uh12"), ExtResource("11_vk5o5"), ExtResource("12_6rfj8")])
+
+[node name="Healthzone" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.97452)
+script = ExtResource("13_2ee0y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Healthzone"]
+shape = SubResource("BoxShape3D_cauil")

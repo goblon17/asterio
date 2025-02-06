@@ -9,6 +9,8 @@ public partial class PlayerStats : Node3D
     public double fireRate;
     [Export]
     public float damage;
+    [Export]
+    public float health;
 
     public override void _Ready()
     {
