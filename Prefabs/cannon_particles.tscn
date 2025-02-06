@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://mar22lnglkbp"]
 
 [ext_resource type="Script" path="res://Scripts/CannonParticles.cs" id="1_p0y4q"]
-[ext_resource type="AudioStream" uid="uid://dnc1fg4pym56t" path="res://Sounds/Cannon Sound Effect.mp3" id="2_33ee3"]
+[ext_resource type="AudioStream" uid="uid://by5lkgyemfrt0" path="res://Sounds/Cannon Sound Effect.mp3" id="2_33ee3"]
 
 [sub_resource type="Curve" id="Curve_m63g5"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.413669, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -13,7 +13,7 @@ curve = SubResource("Curve_m63g5")
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_xhwuq"]
 particle_flag_align_y = true
 direction = Vector3(0, 0, 1)
-spread = 90.0
+spread = 75.0
 initial_velocity_min = 12.0
 initial_velocity_max = 14.0
 gravity = Vector3(0, 0, 0)
@@ -110,7 +110,7 @@ debris = NodePath("Debris")
 fire = NodePath("Fire")
 smoke = NodePath("Smoke")
 sound = NodePath("Sound")
-pitchScaleRange = Vector2(0.7, 1.3)
+pitchScaleRange = Vector2(0.9, 1.1)
 
 [node name="Debris" type="GPUParticles3D" parent="."]
 emitting = false
@@ -143,3 +143,4 @@ draw_pass_1 = SubResource("SphereMesh_qp71q")
 
 [node name="Sound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_33ee3")
+volume_db = -3.0

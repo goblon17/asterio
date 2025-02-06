@@ -6,10 +6,13 @@
 
 [node name="Player" type="Node3D" node_paths=PackedStringArray("cannons")]
 script = ExtResource("1_wgfk8")
+sensitivity = Vector2(0.1, 0.1)
+angleRange = Vector2(30, 60)
 cannons = [NodePath("CannonUpLeft"), NodePath("CannonUpRight"), NodePath("CannonDownLeft"), NodePath("CannonDownRight")]
 
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("2_jvlfs")
+fireRate = 4.0
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)

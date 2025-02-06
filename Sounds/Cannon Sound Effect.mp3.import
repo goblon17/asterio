@@ -2,7 +2,7 @@
 
 importer="mp3"
 type="AudioStreamMP3"
-uid="uid://dnc1fg4pym56t"
+uid="uid://by5lkgyemfrt0"
 path="res://.godot/imported/Cannon Sound Effect.mp3-35e0faca400b25cd61737fc272c10a1d.mp3str"
 
 [deps]
@@ -13,7 +13,7 @@ dest_files=["res://.godot/imported/Cannon Sound Effect.mp3-35e0faca400b25cd61737
 [params]
 
 loop=false
-loop_offset=0.1
+loop_offset=0
 bpm=0
 beat_count=0
 bar_beats=4
