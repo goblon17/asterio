@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf4m2dngk5365"]
+
+[ext_resource type="PackedScene" uid="uid://d26i1tlbp45oh" path="res://Models/dziao.fbx" id="1_mmahy"]
+[ext_resource type="Script" path="res://Scripts/Cannon.cs" id="2_a14ye"]
+[ext_resource type="PackedScene" uid="uid://mar22lnglkbp" path="res://Prefabs/cannon_particles.tscn" id="3_l00vd"]
+
+[node name="Cannon" node_paths=PackedStringArray("animationPlayer", "particlePosition") instance=ExtResource("1_mmahy")]
+script = ExtResource("2_a14ye")
+animationPlayer = NodePath("AnimationPlayer")
+particlePosition = NodePath("ParticlePosition")
+particle = ExtResource("3_l00vd")
+
+[node name="Armature" parent="." index="0"]
+transform = Transform3D(100, 1.22461e-14, 5.35292e-22, 0, -4.37114e-06, 100, 1.22461e-14, -100, -4.37114e-06, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Armature" index="0"]
+bones/0/rotation = Quaternion(1, 6.75304e-15, 7.54979e-08, -1.33158e-07)
+
+[node name="ParticlePosition" type="Node3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 15.3221)

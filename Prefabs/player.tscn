@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cekoxcdqlj6ky"]
+
+[ext_resource type="PackedScene" uid="uid://bf4m2dngk5365" path="res://Prefabs/cannon.tscn" id="1_uskap"]
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_wgfk8"]
+[ext_resource type="Script" path="res://Scripts/PlayerStats.cs" id="2_jvlfs"]
+
+[node name="Player" type="Node3D" node_paths=PackedStringArray("cannons")]
+script = ExtResource("1_wgfk8")
+cannons = [NodePath("CannonUpLeft"), NodePath("CannonUpRight"), NodePath("CannonDownLeft"), NodePath("CannonDownRight")]
+
+[node name="Stats" type="Node3D" parent="."]
+script = ExtResource("2_jvlfs")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="CannonUpLeft" parent="." instance=ExtResource("1_uskap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 4.69059, 2.68417, 2.81272)
+
+[node name="CannonUpRight" parent="." instance=ExtResource("1_uskap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -4.691, 2.68417, 2.81272)
+
+[node name="CannonDownLeft" parent="." instance=ExtResource("1_uskap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 4.691, -2.684, 2.813)
+
+[node name="CannonDownRight" parent="." instance=ExtResource("1_uskap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -4.691, -2.684, 2.813)
