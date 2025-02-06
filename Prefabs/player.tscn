@@ -1,18 +1,64 @@
-[gd_scene load_steps=4 format=3 uid="uid://cekoxcdqlj6ky"]
+[gd_scene load_steps=13 format=3 uid="uid://cekoxcdqlj6ky"]
 
 [ext_resource type="PackedScene" uid="uid://bf4m2dngk5365" path="res://Prefabs/cannon.tscn" id="1_uskap"]
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_wgfk8"]
 [ext_resource type="Script" path="res://Scripts/PlayerStats.cs" id="2_jvlfs"]
+[ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="4_uhb3p"]
 
-[node name="Player" type="Node3D" node_paths=PackedStringArray("cannons")]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_si5ny"]
+albedo_texture = ExtResource("4_uhb3p")
+metallic = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_gxeti"]
+material = SubResource("StandardMaterial3D_si5ny")
+radius = 0.03
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4lk8b"]
+albedo_texture = ExtResource("4_uhb3p")
+metallic = 0.5
+
+[sub_resource type="TorusMesh" id="TorusMesh_1govx"]
+material = SubResource("StandardMaterial3D_4lk8b")
+inner_radius = 0.12
+outer_radius = 0.13
+
+[sub_resource type="TorusMesh" id="TorusMesh_o1hnn"]
+material = SubResource("StandardMaterial3D_4lk8b")
+inner_radius = 0.05
+outer_radius = 0.06
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whiis"]
+transparency = 1
+albedo_color = Color(0.737255, 1, 1, 0.00392157)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3mb3i"]
+material = SubResource("StandardMaterial3D_whiis")
+size = Vector2(1.32, 0.975)
+orientation = 2
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_j0ath"]
+material = SubResource("StandardMaterial3D_whiis")
+size = Vector2(1.32, 0.975)
+orientation = 2
+
+[node name="Player" type="Node3D" node_paths=PackedStringArray("cannons", "rayCast")]
 script = ExtResource("1_wgfk8")
 sensitivity = Vector2(0.1, 0.1)
 angleRange = Vector2(30, 60)
 cannons = [NodePath("CannonUpLeft"), NodePath("CannonUpRight"), NodePath("CannonDownLeft"), NodePath("CannonDownRight")]
+rayCast = NodePath("RayCast3D")
 
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("2_jvlfs")
 fireRate = 4.0
+damage = 1.0
+
+[node name="RayCast3D" type="RayCast3D" parent="."]
+enabled = false
+target_position = Vector3(0, 0, 1000)
+debug_shape_custom_color = Color(1, 0.869863, 0, 1)
+debug_shape_thickness = 5
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
@@ -28,3 +74,110 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 4.691, -2.684, 2.813)
 
 [node name="CannonDownRight" parent="." instance=ExtResource("1_uskap")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -4.691, -2.684, 2.813)
+
+[node name="Cabin" type="Node3D" parent="."]
+
+[node name="Cage" type="Node3D" parent="Cabin"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cabin/Cage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.636772, -1.19209e-07, 0.970348)
+mesh = SubResource("CapsuleMesh_gxeti")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cabin/Cage"]
+transform = Transform3D(0.949283, 0.200725, -0.242015, 0, 0.769712, 0.638392, 0.314423, -0.606014, 0.730674, 0.729609, 0.831898, 0.681079)
+mesh = SubResource("CapsuleMesh_gxeti")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cabin/Cage"]
+transform = Transform3D(0.949425, -0.200568, -0.241586, 0, 0.7694, -0.638768, 0.313992, 0.606462, 0.730488, 0.727, -0.832, 0.672)
+mesh = SubResource("CapsuleMesh_gxeti")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cabin/Cage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.637, -1.19209e-07, 0.970348)
+mesh = SubResource("CapsuleMesh_gxeti")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Cabin/Cage"]
+transform = Transform3D(0.949425, -0.200568, 0.241586, 0, 0.7694, 0.638768, -0.313992, -0.606462, 0.730488, -0.731287, 0.832, 0.687619)
+mesh = SubResource("CapsuleMesh_gxeti")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Cabin/Cage"]
+transform = Transform3D(0.949425, 0.200568, 0.241586, 0, 0.7694, -0.638768, -0.313992, 0.606462, 0.730488, -0.727, -0.832, 0.672)
+mesh = SubResource("CapsuleMesh_gxeti")
+skeleton = NodePath("../..")
+
+[node name="Crosshair" type="Node3D" parent="Cabin"]
+transform = Transform3D(0.65, 0, 0, 0, 0.65, 0, 0, 0, 0.65, 0, 0, 0.97)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cabin/Crosshair"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_1govx")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cabin/Crosshair"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+mesh = SubResource("TorusMesh_o1hnn")
+
+[node name="Glass" type="Node3D" parent="Cabin"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cabin/Glass"]
+transform = Transform3D(-1, 0, -8.74228e-08, 5.44363e-08, 0.782478, -0.622679, 6.84064e-08, -0.622679, -0.782478, 0, 0.86364, 0.67514)
+mesh = SubResource("PlaneMesh_3mb3i")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cabin/Glass"]
+transform = Transform3D(-1, -5.4422e-08, 6.84178e-08, 0, 0.782608, 0.622515, -8.74228e-08, 0.622515, -0.782608, 0, -0.864, 0.675)
+mesh = SubResource("PlaneMesh_3mb3i")
+skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cabin/Glass"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0.977919)
+mesh = SubResource("PlaneMesh_3mb3i")
+skeleton = NodePath("../..")
+
+[node name="Node3D2" type="Node3D" parent="Cabin/Glass"]
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cabin/Glass/Node3D2"]
+transform = Transform3D(-0.312484, 0, 0.949923, 0, 1, 0, -0.949923, 0, -0.312484, -0.847787, 0.00834545, 0.351496)
+mesh = SubResource("PlaneMesh_j0ath")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Cabin/Glass/Node3D2"]
+transform = Transform3D(-0.318689, -0.254624, 0.91832, 0.007575, 1.02564, 0.274058, -0.919891, -0.744909, -0.28407, -0.981999, 0.979986, -0.0312552)
+rotation_edit_mode = 2
+mesh = SubResource("PlaneMesh_j0ath")
+skeleton = NodePath("../../..")
+
+[node name="Node3D" type="Node3D" parent="Cabin/Glass/Node3D2"]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Cabin/Glass/Node3D2/Node3D"]
+transform = Transform3D(-0.318689, -0.254624, 0.91832, 0.007575, 1.02564, 0.274058, -0.919891, -0.744909, -0.28407, -0.981999, 0.977758, -0.0312552)
+rotation_edit_mode = 2
+mesh = SubResource("PlaneMesh_j0ath")
+skeleton = NodePath("../../../..")
+
+[node name="Node3D3" type="Node3D" parent="Cabin/Glass"]
+transform = Transform3D(-1, -8.74228e-08, 0, 8.74228e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cabin/Glass/Node3D3"]
+transform = Transform3D(-0.312484, 0, 0.949923, 0, 1, 0, -0.949923, 0, -0.312484, -0.847787, 0.00834545, 0.351496)
+mesh = SubResource("PlaneMesh_j0ath")
+skeleton = NodePath("../../..")
+
+[node name="MeshInstance3D5" type="MeshInstance3D" parent="Cabin/Glass/Node3D3"]
+transform = Transform3D(-0.318689, -0.254624, 0.91832, 0.007575, 1.02564, 0.274058, -0.919891, -0.744909, -0.28407, -0.981999, 0.979986, -0.0312552)
+rotation_edit_mode = 2
+mesh = SubResource("PlaneMesh_j0ath")
+skeleton = NodePath("../../..")
+
+[node name="Node3D" type="Node3D" parent="Cabin/Glass/Node3D3"]
+transform = Transform3D(1, 0, 0, 0, -1, 0, 0, 0, 1, 0, 0, 0)
+
+[node name="MeshInstance3D6" type="MeshInstance3D" parent="Cabin/Glass/Node3D3/Node3D"]
+transform = Transform3D(-0.318689, -0.254624, 0.91832, 0.007575, 1.02564, 0.274058, -0.919891, -0.744909, -0.28407, -0.981999, 0.977758, -0.0312552)
+rotation_edit_mode = 2
+mesh = SubResource("PlaneMesh_j0ath")
+skeleton = NodePath("../../../..")

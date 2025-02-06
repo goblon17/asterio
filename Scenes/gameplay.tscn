@@ -1,7 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://buix4xavg5iwb"]
+[gd_scene load_steps=8 format=3 uid="uid://buix4xavg5iwb"]
 
 [ext_resource type="Texture2D" uid="uid://4sypjjj1lyxt" path="res://Textures/skybox.png" id="1_mnvyb"]
 [ext_resource type="PackedScene" uid="uid://cekoxcdqlj6ky" path="res://Prefabs/player.tscn" id="1_waas6"]
+[ext_resource type="PackedScene" uid="uid://bbc4sotu2xrpr" path="res://Prefabs/asteroid.tscn" id="3_d8cms"]
+[ext_resource type="Script" path="res://Scripts/AsteroidSpawner.cs" id="3_ic346"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_duvgi"]
 panorama = ExtResource("1_mnvyb")
@@ -26,3 +28,11 @@ shadow_enabled = true
 environment = SubResource("Environment_4xei1")
 
 [node name="Player" parent="." instance=ExtResource("1_waas6")]
+
+[node name="AsteroidSpawner" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 192.262)
+script = ExtResource("3_ic346")
+cooldown = 5.0
+speed = 10.0
+halfExtents = Vector2(20, 10)
+asteroidPrefab = ExtResource("3_d8cms")

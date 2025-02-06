@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bbc4sotu2xrpr"]
+
+[ext_resource type="Script" path="res://Scripts/Asteroid.cs" id="1_t3c1c"]
+[ext_resource type="PackedScene" uid="uid://budvd74domoqg" path="res://Prefabs/impact_particle.tscn" id="2_od4tf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_70cy6"]
+size = Vector3(2, 2, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ns2ne"]
+size = Vector3(2, 2, 2)
+
+[node name="Asteroid" type="RigidBody3D"]
+gravity_scale = 0.0
+linear_damp_mode = 1
+script = ExtResource("1_t3c1c")
+health = 5.0
+impactParticle = ExtResource("2_od4tf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_70cy6")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_ns2ne")

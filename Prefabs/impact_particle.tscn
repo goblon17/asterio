@@ -1,0 +1,91 @@
+[gd_scene load_steps=14 format=3 uid="uid://budvd74domoqg"]
+
+[ext_resource type="Script" path="res://Scripts/ImpactParticle.cs" id="1_bqfpc"]
+
+[sub_resource type="Curve" id="Curve_8tmin"]
+_data = [Vector2(0.66187, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_6xans"]
+curve = SubResource("Curve_8tmin")
+
+[sub_resource type="Curve" id="Curve_obypu"]
+_data = [Vector2(0, 0.00588238), 0.0, 0.0, 0, 0, Vector2(0.0395683, 1), 0.0, 0.0, 0, 0, Vector2(0.31295, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5125), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_os5ha"]
+curve = SubResource("Curve_obypu")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_0vvlc"]
+emission_shape = 1
+emission_sphere_radius = 1.0
+direction = Vector3(0, -1, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 5, 0)
+scale_min = 0.5
+scale_curve = SubResource("CurveTexture_os5ha")
+alpha_curve = SubResource("CurveTexture_6xans")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c0nsi"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.515625, 0.50708, 0.481444, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_x1pu2"]
+material = SubResource("StandardMaterial3D_c0nsi")
+
+[sub_resource type="Curve" id="Curve_ib3e0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.413669, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_qf6am"]
+curve = SubResource("Curve_ib3e0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_iae71"]
+particle_flag_align_y = true
+direction = Vector3(0, 1, 0)
+spread = 75.0
+initial_velocity_min = 8.0
+initial_velocity_max = 10.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_max = 1.5
+scale_curve = SubResource("CurveTexture_qf6am")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2v3wu"]
+albedo_color = Color(0.609375, 0.609375, 0.609375, 1)
+emission_enabled = true
+emission = Color(0.339844, 0.339844, 0.339844, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_edpu4"]
+material = SubResource("StandardMaterial3D_2v3wu")
+top_radius = 0.1
+bottom_radius = 0.0
+
+[node name="ImpactParticle" type="Node3D" node_paths=PackedStringArray("smoke", "debris")]
+script = ExtResource("1_bqfpc")
+smoke = NodePath("Smoke")
+debris = NodePath("Debris")
+
+[node name="Smoke" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 16
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_0vvlc")
+draw_pass_1 = SubResource("SphereMesh_x1pu2")
+
+[node name="Debris" type="GPUParticles3D" parent="."]
+emitting = false
+amount = 12
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+fixed_fps = 60
+process_material = SubResource("ParticleProcessMaterial_iae71")
+draw_pass_1 = SubResource("CylinderMesh_edpu4")

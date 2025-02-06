@@ -10,6 +10,8 @@ public partial class Player : Node3D
     private Vector2 angleRange;
 	[Export]
 	private Cannon[] cannons;
+    [Export]
+    private RayCast3D rayCast;
 
     private bool mouseButtonDown = false;
     private double timer = 0;
@@ -30,9 +32,20 @@ public partial class Player : Node3D
 
         if (mouseButtonDown && timer <= 0)
         {
-            cannons[currentCannonIndex].Fire();
-            currentCannonIndex = Mathf.PosMod(currentCannonIndex + 1, cannons.Length);
-            timer = 1 / PlayerStats.Instance.fireRate;
+            Fire();
+        }
+    }
+
+    private void Fire()
+    {
+        cannons[currentCannonIndex].Fire();
+        currentCannonIndex = Mathf.PosMod(currentCannonIndex + 1, cannons.Length);
+        timer = 1 / PlayerStats.Instance.fireRate;
+
+        rayCast.ForceRaycastUpdate();
+        if (rayCast.IsColliding() && rayCast.GetCollider() is Asteroid asteroid)
+        {
+            asteroid.TakeDamage(PlayerStats.Instance.damage, rayCast.GetCollisionPoint(), rayCast.GetCollisionNormal());
         }
     }
 

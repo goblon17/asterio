@@ -7,6 +7,8 @@ public partial class PlayerStats : Node3D
 
     [Export]
     public double fireRate;
+    [Export]
+    public float damage;
 
     public override void _Ready()
     {
