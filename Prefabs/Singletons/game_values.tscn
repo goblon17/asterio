@@ -1,0 +1,12 @@
+[gd_scene load_steps=5 format=3 uid="uid://cfwklcmhux63a"]
+
+[ext_resource type="Script" path="res://Scripts/Singletons/GameValues.cs" id="1_5v4xa"]
+[ext_resource type="PackedScene" uid="uid://cdo4bxg6iotvs" path="res://Scenes/main_menu.tscn" id="2_hidpo"]
+[ext_resource type="PackedScene" uid="uid://buix4xavg5iwb" path="res://Scenes/gameplay.tscn" id="3_017pp"]
+[ext_resource type="PackedScene" uid="uid://dy8n8w61suayp" path="res://Scenes/game_over.tscn" id="4_aw2op"]
+
+[node name="GameValues" type="Node"]
+script = ExtResource("1_5v4xa")
+MainMenu = ExtResource("2_hidpo")
+Game = ExtResource("3_017pp")
+GameOver = ExtResource("4_aw2op")

@@ -34,6 +34,7 @@ public partial class Asteroid : RigidBody3D
 
         if ((health -= dmg) <= 0)
         {
+            GameValues.Instance.score += 1;
             Die();
         }
     }

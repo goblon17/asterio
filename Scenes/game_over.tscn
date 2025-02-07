@@ -1,0 +1,64 @@
+[gd_scene load_steps=3 format=3 uid="uid://dy8n8w61suayp"]
+
+[ext_resource type="PackedScene" uid="uid://cqug60jhp015b" path="res://Prefabs/environment.tscn" id="1_5udua"]
+[ext_resource type="Script" path="res://Scripts/GameOverManager.cs" id="1_bdc2m"]
+
+[node name="GameOver" type="Node3D" node_paths=PackedStringArray("score", "mainMenuButton", "quitButton")]
+script = ExtResource("1_bdc2m")
+score = NodePath("UI/VBoxContainer/ScoreText")
+mainMenuButton = NodePath("UI/VBoxContainer/MainMenuButton")
+quitButton = NodePath("UI/VBoxContainer/QuitButton")
+
+[node name="Environment" parent="." instance=ExtResource("1_5udua")]
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -200.0
+offset_right = 100.0
+offset_bottom = 200.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="GameOverText" type="RichTextLabel" parent="UI/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Game Over[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="ScoreText" type="RichTextLabel" parent="UI/VBoxContainer"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Score: {num}[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="Separator" type="Control" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+
+[node name="MainMenuButton" type="Button" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Main Menu"
+
+[node name="QuitButton" type="Button" parent="UI/VBoxContainer"]
+layout_mode = 2
+text = "Quit"
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.657401, -0.293195, 0.694162, 0, 0.9212, 0.38909, -0.753541, -0.255788, 0.605597, 2.77665, 1.55636, 2.42239)

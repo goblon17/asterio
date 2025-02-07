@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://buix4xavg5iwb"]
+[gd_scene load_steps=16 format=3 uid="uid://buix4xavg5iwb"]
 
-[ext_resource type="Texture2D" uid="uid://4sypjjj1lyxt" path="res://Textures/skybox.png" id="1_mnvyb"]
+[ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_gwdgv"]
 [ext_resource type="PackedScene" uid="uid://cekoxcdqlj6ky" path="res://Prefabs/player.tscn" id="1_waas6"]
+[ext_resource type="PackedScene" uid="uid://cqug60jhp015b" path="res://Prefabs/environment.tscn" id="2_a2cno"]
 [ext_resource type="PackedScene" uid="uid://bbc4sotu2xrpr" path="res://Prefabs/asteroid.tscn" id="3_d8cms"]
 [ext_resource type="Script" path="res://Scripts/AsteroidSpawner.cs" id="3_ic346"]
 [ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="5_clemr"]
@@ -14,30 +15,13 @@
 [ext_resource type="Shape3D" uid="uid://254r1vmbv1v2" path="res://Models/asteroid4.shape" id="12_6rfj8"]
 [ext_resource type="Script" path="res://Scripts/Health.cs" id="13_2ee0y"]
 
-[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_duvgi"]
-panorama = ExtResource("1_mnvyb")
-
-[sub_resource type="Sky" id="Sky_j600n"]
-sky_material = SubResource("PanoramaSkyMaterial_duvgi")
-
-[sub_resource type="Environment" id="Environment_4xei1"]
-background_mode = 2
-sky = SubResource("Sky_j600n")
-sky_rotation = Vector3(0, -1.32296, 0)
-tonemap_mode = 2
-glow_enabled = true
-
 [sub_resource type="BoxShape3D" id="BoxShape3D_cauil"]
 size = Vector3(100, 100, 1)
 
 [node name="Gameplay" type="Node3D"]
+script = ExtResource("1_gwdgv")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.774857, -0.557226, 0.29849, -0.042955, 0.517514, 0.854596, -0.630676, 0.649368, -0.424935, 0, 7.72943, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_4xei1")
+[node name="Environment" parent="." instance=ExtResource("2_a2cno")]
 
 [node name="Player" parent="." instance=ExtResource("1_waas6")]
 
@@ -57,4 +41,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.97452)
 script = ExtResource("13_2ee0y")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Healthzone"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 shape = SubResource("BoxShape3D_cauil")
