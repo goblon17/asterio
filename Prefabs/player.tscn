@@ -1,9 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cekoxcdqlj6ky"]
+[gd_scene load_steps=15 format=3 uid="uid://cekoxcdqlj6ky"]
 
 [ext_resource type="PackedScene" uid="uid://bf4m2dngk5365" path="res://Prefabs/cannon.tscn" id="1_uskap"]
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_wgfk8"]
 [ext_resource type="Script" path="res://Scripts/PlayerStats.cs" id="2_jvlfs"]
 [ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="4_uhb3p"]
+[ext_resource type="PackedScene" uid="uid://cps8g8eic347m" path="res://Prefabs/heat_panel.tscn" id="5_6j8bg"]
+[ext_resource type="PackedScene" uid="uid://kedsvklwh0d5" path="res://Prefabs/health_panel.tscn" id="6_i66um"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_si5ny"]
 albedo_texture = ExtResource("4_uhb3p")
@@ -54,6 +56,8 @@ script = ExtResource("2_jvlfs")
 fireRate = 4.0
 damage = 1.0
 health = 10.0
+heat = 0.1
+heatReductionSpeed = 0.1
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 enabled = false
@@ -182,3 +186,9 @@ transform = Transform3D(-0.318689, -0.254624, 0.91832, 0.007575, 1.02564, 0.2740
 rotation_edit_mode = 2
 mesh = SubResource("PlaneMesh_j0ath")
 skeleton = NodePath("../../../..")
+
+[node name="Cockpit" type="Node3D" parent="."]
+
+[node name="Heat" parent="Cockpit" instance=ExtResource("5_6j8bg")]
+
+[node name="Health" parent="Cockpit" instance=ExtResource("6_i66um")]

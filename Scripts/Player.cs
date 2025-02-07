@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public partial class Player : Node3D
 {
+    public static Player Instance { get; private set; }
+
     [Export]
     private Vector2 sensitivity;
     [Export]
@@ -13,13 +15,27 @@ public partial class Player : Node3D
     [Export]
     private RayCast3D rayCast;
 
+    public event Action<float> HeatChanged;
+
     private bool mouseButtonDown = false;
     private double timer = 0;
     private int currentCannonIndex;
 
+    public float CurrentHeat 
+    { 
+        get => currentHeat; 
+        private set
+        {
+            currentHeat = value;
+            HeatChanged?.Invoke(value);
+        }
+    }
+    private float currentHeat = 0;
+
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+        Instance = this;
         Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
 
@@ -30,9 +46,21 @@ public partial class Player : Node3D
             timer -= delta;
         }
 
-        if (mouseButtonDown && timer <= 0)
+        if (timer <= 0)
         {
-            Fire();
+            if (CurrentHeat > 0)
+            {
+                CurrentHeat -= PlayerStats.Instance.heatReductionSpeed * (float)delta;
+                if (CurrentHeat < 0)
+                {
+                    CurrentHeat = 0;
+                }
+            }
+
+            if (mouseButtonDown && CurrentHeat < 1 - PlayerStats.Instance.heat)
+            {
+                Fire();
+            }
         }
     }
 
@@ -41,6 +69,7 @@ public partial class Player : Node3D
         cannons[currentCannonIndex].Fire();
         currentCannonIndex = Mathf.PosMod(currentCannonIndex + 1, cannons.Length);
         timer = 1 / PlayerStats.Instance.fireRate;
+        CurrentHeat += PlayerStats.Instance.heat;
 
         rayCast.ForceRaycastUpdate();
         if (rayCast.IsColliding() && rayCast.GetCollider() is Asteroid asteroid)

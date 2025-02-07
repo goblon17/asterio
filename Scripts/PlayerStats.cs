@@ -11,6 +11,10 @@ public partial class PlayerStats : Node3D
     public float damage;
     [Export]
     public float health;
+    [Export]
+    public float heat;
+    [Export]
+    public float heatReductionSpeed;
 
     public override void _Ready()
     {

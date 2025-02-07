@@ -3,12 +3,26 @@ using System;
 
 public partial class Health : Area3D
 {
+    public static Health Instance { get; private set; }
+
+    public event Action<float> HealthChanged;
+    public float CurrentHealth
+    {
+        get => currentHealth;
+        set
+        {
+            currentHealth = value;
+            HealthChanged?.Invoke(value);
+        }
+    }
+
 	[Export]
 	private float currentHealth;
 
     public override void _Ready()
     {
-        currentHealth = PlayerStats.Instance.health;
+        Instance = this;
+        CurrentHealth = PlayerStats.Instance.health;
         BodyEntered += OnBodyEntered;
     }
 
@@ -22,8 +36,7 @@ public partial class Health : Area3D
 
     private void OnAsteroidHit(Asteroid asteroid)
     {
-        currentHealth -= asteroid.Damage;
-        GD.Print("bulkech");
+        CurrentHealth -= asteroid.Damage;
         asteroid.Die();
     }
 }

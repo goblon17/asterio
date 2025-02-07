@@ -1,0 +1,55 @@
+[gd_scene load_steps=10 format=3 uid="uid://cps8g8eic347m"]
+
+[ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="1_p1p52"]
+[ext_resource type="Script" path="res://Scripts/HeatPanel.cs" id="2_y8ouk"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rb00w"]
+albedo_texture = ExtResource("1_p1p52")
+metallic = 1.0
+uv1_scale = Vector3(0.73, 0.135, 1.802)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y5avs"]
+size = Vector3(0.25, 0.1, 0.02)
+
+[sub_resource type="Gradient" id="Gradient_ivlqw"]
+offsets = PackedFloat32Array(0, 0.225166, 0.635762, 1)
+colors = PackedColorArray(0, 1, 0, 1, 1, 0.933011, 0, 1, 1, 0.490429, 0.0167694, 1, 1, 0, 0.0353518, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_npygc"]
+albedo_color = Color(0.427451, 0.427451, 0.427451, 1)
+
+[sub_resource type="QuadMesh" id="QuadMesh_0orix"]
+size = Vector2(0.2, 0.02)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymudu"]
+albedo_color = Color(1, 0.0347095, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 2.0
+
+[sub_resource type="QuadMesh" id="QuadMesh_p6esd"]
+size = Vector2(0.195, 0.015)
+
+[node name="Heat" type="MeshInstance3D" node_paths=PackedStringArray("heatFill")]
+transform = Transform3D(-0.763238, 0.199661, -0.614495, 0, 0.951057, 0.309016, 0.646118, 0.235853, -0.725882, 0.357671, -0.216957, 0.446568)
+material_override = SubResource("StandardMaterial3D_rb00w")
+mesh = SubResource("BoxMesh_y5avs")
+script = ExtResource("2_y8ouk")
+gradient = SubResource("Gradient_ivlqw")
+heatFill = NodePath("FillContainer/Fill")
+
+[node name="Background" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.000354905, -0.0154976, 0.0102047)
+material_override = SubResource("StandardMaterial3D_npygc")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_0orix")
+
+[node name="FillContainer" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.097, -0.015, 0.011)
+
+[node name="Fill" type="MeshInstance3D" parent="FillContainer"]
+transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.0966451, -0.000497572, -0.000145912)
+material_override = SubResource("StandardMaterial3D_ymudu")
+cast_shadow = 0
+mesh = SubResource("QuadMesh_p6esd")
+skeleton = NodePath("../..")
