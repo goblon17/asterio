@@ -1,6 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://budvd74domoqg"]
+[gd_scene load_steps=15 format=3 uid="uid://budvd74domoqg"]
 
 [ext_resource type="Script" path="res://Scripts/ImpactParticle.cs" id="1_bqfpc"]
+[ext_resource type="AudioStream" uid="uid://bkqnp5jaqa7a1" path="res://Sounds/Rubble Sound Effect.mp3" id="2_lbg5c"]
 
 [sub_resource type="Curve" id="Curve_8tmin"]
 _data = [Vector2(0.66187, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -64,10 +65,11 @@ material = SubResource("StandardMaterial3D_2v3wu")
 top_radius = 0.1
 bottom_radius = 0.0
 
-[node name="ImpactParticle" type="Node3D" node_paths=PackedStringArray("smoke", "debris")]
+[node name="ImpactParticle" type="Node3D" node_paths=PackedStringArray("smoke", "debris", "player")]
 script = ExtResource("1_bqfpc")
 smoke = NodePath("Smoke")
 debris = NodePath("Debris")
+player = NodePath("Sound")
 
 [node name="Smoke" type="GPUParticles3D" parent="."]
 emitting = false
@@ -89,3 +91,7 @@ explosiveness = 1.0
 fixed_fps = 60
 process_material = SubResource("ParticleProcessMaterial_iae71")
 draw_pass_1 = SubResource("CylinderMesh_edpu4")
+
+[node name="Sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_lbg5c")
+volume_db = -3.0

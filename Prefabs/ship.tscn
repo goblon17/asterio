@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://bc3rhy0wadq2c"]
+
+[ext_resource type="PackedScene" uid="uid://b87wbip62wtup" path="res://Models/ship.fbx" id="1_5xlkc"]
+
+[sub_resource type="Curve" id="Curve_sfo3i"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_51dwo"]
+curve = SubResource("Curve_sfo3i")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3toav"]
+direction = Vector3(0, 0, -1)
+spread = 3.0
+initial_velocity_min = 12.0
+initial_velocity_max = 14.0
+gravity = Vector3(0, 0, 0)
+alpha_curve = SubResource("CurveTexture_51dwo")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w7e3h"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_color = Color(0, 0.783199, 0.832031, 1)
+emission_enabled = true
+emission = Color(0, 0.783199, 0.832031, 1)
+emission_energy_multiplier = 2.5
+
+[sub_resource type="SphereMesh" id="SphereMesh_vt20n"]
+material = SubResource("StandardMaterial3D_w7e3h")
+
+[node name="ship" instance=ExtResource("1_5xlkc")]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." index="1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.75295)
+amount = 24
+lifetime = 0.3
+process_material = SubResource("ParticleProcessMaterial_3toav")
+draw_pass_1 = SubResource("SphereMesh_vt20n")
