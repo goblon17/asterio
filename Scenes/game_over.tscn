@@ -1,13 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://dy8n8w61suayp"]
+[gd_scene load_steps=6 format=3 uid="uid://dy8n8w61suayp"]
 
 [ext_resource type="PackedScene" uid="uid://cqug60jhp015b" path="res://Prefabs/environment.tscn" id="1_5udua"]
 [ext_resource type="Script" path="res://Scripts/GameOverManager.cs" id="1_bdc2m"]
+[ext_resource type="PackedScene" uid="uid://bc3rhy0wadq2c" path="res://Prefabs/ship.tscn" id="3_53oyc"]
+[ext_resource type="ArrayMesh" uid="uid://cv1sbpc6p3inv" path="res://Models/asteroid3.res" id="4_mv52b"]
+[ext_resource type="PackedScene" uid="uid://ck54v0wynpili" path="res://Prefabs/game_over_explosion_particles.tscn" id="5_8aq74"]
 
-[node name="GameOver" type="Node3D" node_paths=PackedStringArray("score", "mainMenuButton", "quitButton")]
+[node name="GameOver" type="Node3D" node_paths=PackedStringArray("score", "mainMenuButton", "quitButton", "explosionParticles", "ship", "asteroid", "asteroidEndPos")]
 script = ExtResource("1_bdc2m")
 score = NodePath("UI/VBoxContainer/ScoreText")
 mainMenuButton = NodePath("UI/VBoxContainer/MainMenuButton")
 quitButton = NodePath("UI/VBoxContainer/QuitButton")
+timeToExplosion = 2.0
+rotationSpeedRange = Vector2(-10, 10)
+explosionParticles = NodePath("CannonParticles")
+ship = NodePath("ship")
+asteroid = NodePath("Asteroid")
+asteroidEndPos = NodePath("AsteroidEndPos")
 
 [node name="Environment" parent="." instance=ExtResource("1_5udua")]
 
@@ -61,4 +70,15 @@ layout_mode = 2
 text = "Quit"
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.657401, -0.293195, 0.694162, 0, 0.9212, 0.38909, -0.753541, -0.255788, 0.605597, 2.77665, 1.55636, 2.42239)
+transform = Transform3D(0.268956, -0.544119, 0.794731, 0, 0.825135, 0.564935, -0.963152, -0.151943, 0.221925, 11.5138, 8.08949, 5.03128)
+
+[node name="ship" parent="." instance=ExtResource("3_53oyc")]
+
+[node name="Asteroid" type="MeshInstance3D" parent="."]
+transform = Transform3D(40, 0, 0, 0, 40, 0, 0, 0, 40, 0, 0, 14.2221)
+mesh = ExtResource("4_mv52b")
+
+[node name="AsteroidEndPos" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.04686)
+
+[node name="CannonParticles" parent="." instance=ExtResource("5_8aq74")]
