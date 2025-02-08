@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cekoxcdqlj6ky"]
+[gd_scene load_steps=16 format=3 uid="uid://cekoxcdqlj6ky"]
 
 [ext_resource type="PackedScene" uid="uid://bf4m2dngk5365" path="res://Prefabs/cannon.tscn" id="1_uskap"]
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_wgfk8"]
 [ext_resource type="Script" path="res://Scripts/PlayerStats.cs" id="2_jvlfs"]
+[ext_resource type="Script" path="res://Scripts/PlayerCamera.cs" id="3_cnrpu"]
 [ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="4_uhb3p"]
 [ext_resource type="PackedScene" uid="uid://cps8g8eic347m" path="res://Prefabs/heat_panel.tscn" id="5_6j8bg"]
 [ext_resource type="PackedScene" uid="uid://kedsvklwh0d5" path="res://Prefabs/health_panel.tscn" id="6_i66um"]
@@ -67,6 +68,9 @@ debug_shape_thickness = 5
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.2)
+script = ExtResource("3_cnrpu")
+shakeRange = Vector2(0.1, 0.1)
+shakeDuration = 1.0
 
 [node name="CannonUpLeft" parent="." instance=ExtResource("1_uskap")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 4.69059, 2.68417, 2.81272)
