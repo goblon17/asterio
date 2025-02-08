@@ -96,13 +96,6 @@ public partial class Player : Node3D
                     mouseButtonDown = mouseButton.Pressed;
                 }
                 break;
-
-            case InputEventKey key:
-                if (key.Pressed && key.Keycode == Key.Escape)
-                {
-                    GetTree().Quit();
-                }
-                break;
         }
     }
 }

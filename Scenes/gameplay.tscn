@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://buix4xavg5iwb"]
+[gd_scene load_steps=17 format=3 uid="uid://buix4xavg5iwb"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_gwdgv"]
 [ext_resource type="PackedScene" uid="uid://cekoxcdqlj6ky" path="res://Prefabs/player.tscn" id="1_waas6"]
 [ext_resource type="PackedScene" uid="uid://cqug60jhp015b" path="res://Prefabs/environment.tscn" id="2_a2cno"]
+[ext_resource type="PackedScene" uid="uid://v073sh7rhqe0" path="res://Prefabs/pause_screen.tscn" id="3_2sfer"]
 [ext_resource type="PackedScene" uid="uid://bbc4sotu2xrpr" path="res://Prefabs/asteroid.tscn" id="3_d8cms"]
 [ext_resource type="Script" path="res://Scripts/AsteroidSpawner.cs" id="3_ic346"]
 [ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="5_clemr"]
@@ -22,6 +23,8 @@ size = Vector3(100, 100, 1)
 script = ExtResource("1_gwdgv")
 
 [node name="Environment" parent="." instance=ExtResource("2_a2cno")]
+
+[node name="PauseScreen" parent="." instance=ExtResource("3_2sfer")]
 
 [node name="Player" parent="." instance=ExtResource("1_waas6")]
 
