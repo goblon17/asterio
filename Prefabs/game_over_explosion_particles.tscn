@@ -1,6 +1,7 @@
-[gd_scene load_steps=23 format=3 uid="uid://ck54v0wynpili"]
+[gd_scene load_steps=24 format=3 uid="uid://brkiisnrjvijr"]
 
 [ext_resource type="PackedScene" uid="uid://mar22lnglkbp" path="res://Prefabs/cannon_particles.tscn" id="1_cf6o1"]
+[ext_resource type="AudioStream" uid="uid://d1ryb0b3ovm87" path="res://Sounds/Explosion Sound Effect.mp3" id="2_u633u"]
 
 [sub_resource type="Curve" id="Curve_jsp4j"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.413669, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -129,3 +130,6 @@ draw_pass_1 = SubResource("SphereMesh_8qpmj")
 amount = 18
 process_material = SubResource("ParticleProcessMaterial_hmlot")
 draw_pass_1 = SubResource("SphereMesh_hfr4t")
+
+[node name="Sound" parent="." index="3"]
+stream = ExtResource("2_u633u")

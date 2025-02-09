@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/GameOverManager.cs" id="1_bdc2m"]
 [ext_resource type="PackedScene" uid="uid://bc3rhy0wadq2c" path="res://Prefabs/ship.tscn" id="3_53oyc"]
 [ext_resource type="ArrayMesh" uid="uid://cv1sbpc6p3inv" path="res://Models/asteroid3.res" id="4_mv52b"]
-[ext_resource type="PackedScene" uid="uid://ck54v0wynpili" path="res://Prefabs/game_over_explosion_particles.tscn" id="5_8aq74"]
+[ext_resource type="PackedScene" uid="uid://brkiisnrjvijr" path="res://Prefabs/game_over_explosion_particles.tscn" id="5_8aq74"]
 
 [node name="GameOver" type="Node3D" node_paths=PackedStringArray("score", "mainMenuButton", "quitButton", "explosionParticles", "ship", "asteroid", "asteroidEndPos")]
 script = ExtResource("1_bdc2m")

@@ -1,9 +1,9 @@
-[gd_scene load_steps=17 format=3 uid="uid://buix4xavg5iwb"]
+[gd_scene load_steps=18 format=3 uid="uid://buix4xavg5iwb"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_gwdgv"]
 [ext_resource type="PackedScene" uid="uid://cekoxcdqlj6ky" path="res://Prefabs/player.tscn" id="1_waas6"]
 [ext_resource type="PackedScene" uid="uid://cqug60jhp015b" path="res://Prefabs/environment.tscn" id="2_a2cno"]
-[ext_resource type="PackedScene" uid="uid://v073sh7rhqe0" path="res://Prefabs/pause_screen.tscn" id="3_2sfer"]
+[ext_resource type="PackedScene" path="res://Prefabs/pause_screen.tscn" id="3_2sfer"]
 [ext_resource type="PackedScene" uid="uid://bbc4sotu2xrpr" path="res://Prefabs/asteroid.tscn" id="3_d8cms"]
 [ext_resource type="Script" path="res://Scripts/AsteroidSpawner.cs" id="3_ic346"]
 [ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="5_clemr"]
@@ -15,6 +15,7 @@
 [ext_resource type="Shape3D" uid="uid://c1i10m0bfiuin" path="res://Models/asteroid3.shape" id="11_vk5o5"]
 [ext_resource type="Shape3D" uid="uid://254r1vmbv1v2" path="res://Models/asteroid4.shape" id="12_6rfj8"]
 [ext_resource type="Script" path="res://Scripts/Health.cs" id="13_2ee0y"]
+[ext_resource type="AudioStream" uid="uid://d02hdppwys1ua" path="res://Sounds/Impact Sound Effect.mp3" id="16_ulptb"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cauil"]
 size = Vector3(100, 100, 1)
@@ -39,10 +40,15 @@ asteroidPrefab = ExtResource("3_d8cms")
 possibleMehses = Array[ArrayMesh]([ExtResource("5_clemr"), ExtResource("6_esgal"), ExtResource("7_oboxl"), ExtResource("8_2mb8p")])
 possibleCollisions = Array[ConcavePolygonShape3D]([ExtResource("9_1f0j0"), ExtResource("10_2uh12"), ExtResource("11_vk5o5"), ExtResource("12_6rfj8")])
 
-[node name="Healthzone" type="Area3D" parent="."]
+[node name="Healthzone" type="Area3D" parent="." node_paths=PackedStringArray("audio")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.97452)
 script = ExtResource("13_2ee0y")
+audio = NodePath("AudioStreamPlayer3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Healthzone"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.5)
 shape = SubResource("BoxShape3D_cauil")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Healthzone"]
+stream = ExtResource("16_ulptb")
+volume_db = 1.0

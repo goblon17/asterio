@@ -16,6 +16,9 @@ public partial class Health : Area3D
         }
     }
 
+    [Export]
+    private AudioStreamPlayer3D audio;
+
 	[Export]
 	private float currentHealth;
 
@@ -37,6 +40,7 @@ public partial class Health : Area3D
     private void OnAsteroidHit(Asteroid asteroid)
     {
         CurrentHealth -= asteroid.Damage;
+        audio.Play();
         asteroid.Die();
     }
 }

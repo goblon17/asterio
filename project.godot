@@ -18,6 +18,7 @@ config/icon="res://Textures/icon.png"
 [autoload]
 
 GameValues="*res://Prefabs/Singletons/game_values.tscn"
+GameMusic="*res://Prefabs/Singletons/game_music.tscn"
 
 [dotnet]
 

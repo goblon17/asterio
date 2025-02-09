@@ -16,18 +16,35 @@ public partial class CannonParticles : Node3D
 
     private RandomNumberGenerator rng = new RandomNumberGenerator();
 
+    private bool smokeFinished = false;
+    private bool soundFinished = false;
+
     public void Fire()
 	{
 		debris.Emitting = true;
 		fire.Emitting = true;
         sound.PitchScale = rng.RandfRange(pitchScaleRange.X, pitchScaleRange.Y);
+        smoke.Finished += () =>
+        {
+            smokeFinished = true;
+            TryDestroy();
+        };
+        sound.Finished += () =>
+        {
+            soundFinished = true;
+            TryDestroy();
+        };
 		sound.Play();
         GetTree().CreateTimer(0.1).Timeout += () => smoke.Emitting = true;
-        GetTree().CreateTimer(2.5).Timeout += OnTimeout;
 	}
 
-    private void OnTimeout()
+    private void TryDestroy()
     {
+        if (!smokeFinished || !soundFinished)
+        {
+            return;
+        }
+
         QueueFree();
     }
 }

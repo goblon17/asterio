@@ -94,4 +94,4 @@ draw_pass_1 = SubResource("CylinderMesh_edpu4")
 
 [node name="Sound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_lbg5c")
-volume_db = -3.0
+volume_db = -5.0
