@@ -9,6 +9,7 @@ public partial class GameManager : Node3D
     {
         Instance = this;
         GameValues.Instance.score = 0;
+        GameMusic.Instance.SetMusic(GameMusic.Music.Normal, false);
         CallDeferred(nameof(OnReady));
     }
 

@@ -28,6 +28,7 @@ public partial class GameOverManager : Node3D
 
 	public override void _Ready()
 	{
+        GameMusic.Instance.SetMusic(GameMusic.Music.Radio, false);
 		Input.MouseMode = Input.MouseModeEnum.Visible;
         score.Text = score.Text.Replace("{num}", GameValues.Instance.score.ToString());
         mainMenuButton.Pressed += OnMainMenuPressed;
@@ -49,6 +50,7 @@ public partial class GameOverManager : Node3D
             explosionParticles.Fire();
             asteroid.QueueFree();
             ship.QueueFree();
+            GameMusic.Instance.SetMusic(GameMusic.Music.None, true);
         }));
     }
 

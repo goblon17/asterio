@@ -133,3 +133,4 @@ draw_pass_1 = SubResource("SphereMesh_hfr4t")
 
 [node name="Sound" parent="." index="3"]
 stream = ExtResource("2_u633u")
+volume_db = 2.0

@@ -12,7 +12,13 @@ public partial class MainMenuManager : Node3D
 	{
         playButton.Pressed += OnPlayPressed;
         quitButton.Pressed += OnQuitPressed;
+        CallDeferred(nameof(OnReady));
 	}
+
+    private void OnReady()
+    {
+        GameMusic.Instance.SetMusic(GameMusic.Music.Radio, false);
+    }
 
     private void OnPlayPressed()
     {

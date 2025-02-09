@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c3tb0du1khpo8"
+path="res://.godot/imported/Polski Lotnik Kosmonauta.mp3-9e363c8dc6ce3eb17e2ae8b39586c033.mp3str"
+
+[deps]
+
+source_file="res://Sounds/Polski Lotnik Kosmonauta.mp3"
+dest_files=["res://.godot/imported/Polski Lotnik Kosmonauta.mp3-9e363c8dc6ce3eb17e2ae8b39586c033.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

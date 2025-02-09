@@ -1,4 +1,24 @@
-[gd_scene format=3 uid="uid://ckiayfqp86u81"]
+[gd_scene load_steps=4 format=3 uid="uid://ckiayfqp86u81"]
 
-[node name="GameMusic" type="AudioStreamPlayer"]
+[ext_resource type="AudioStream" uid="uid://b3ueq8c7yxnui" path="res://Sounds/Polski Lotnik Kosmonauta radio.mp3" id="1_0qlv8"]
+[ext_resource type="AudioStream" uid="uid://c3tb0du1khpo8" path="res://Sounds/Polski Lotnik Kosmonauta.mp3" id="1_h87f8"]
+[ext_resource type="Script" path="res://Scripts/Singletons/GameMusic.cs" id="1_p5xr7"]
+
+[node name="GameMusic" type="Node"]
+process_mode = 3
+script = ExtResource("1_p5xr7")
+fadeDuration = 2.0
+
+[node name="Normal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_h87f8")
+volume_db = -5.0
 autoplay = true
+bus = &"Normal"
+parameters/looping = true
+
+[node name="Radio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("1_0qlv8")
+volume_db = -5.0
+autoplay = true
+bus = &"Radio"
+parameters/looping = true
