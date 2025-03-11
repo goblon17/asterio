@@ -1,0 +1,138 @@
+[gd_scene load_steps=18 format=3 uid="uid://xo0f14u51odj"]
+
+[ext_resource type="Script" path="res://Scripts/UpgradeIndicator.cs" id="1_0xa31"]
+[ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="1_v7beh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7xn4m"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2tg7f"]
+material = SubResource("StandardMaterial3D_7xn4m")
+size = Vector3(0.2, 0.1, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_b0vcb"]
+albedo_color = Color(0.648438, 0.648438, 0.648438, 1)
+metallic = 1.0
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.226912, 0.398438, 0.145075, 1)
+emission_energy_multiplier = 16.0
+normal_scale = -16.0
+normal_texture = ExtResource("1_v7beh")
+
+[sub_resource type="PrismMesh" id="PrismMesh_qyyso"]
+material = SubResource("StandardMaterial3D_b0vcb")
+size = Vector3(0.08, 0.03, 0.005)
+
+[sub_resource type="TextMesh" id="TextMesh_tbbom"]
+material = SubResource("StandardMaterial3D_7xn4m")
+text = "Q"
+font_size = 24
+pixel_size = 0.001
+depth = 0.001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_srq2i"]
+shading_mode = 0
+albedo_color = Color(0, 0, 0, 1)
+
+[sub_resource type="TextMesh" id="TextMesh_r2q2l"]
+material = SubResource("StandardMaterial3D_srq2i")
+text = "F"
+font_size = 24
+pixel_size = 0.001
+depth = 0.001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ljt7k"]
+albedo_color = Color(0.643137, 0, 0.00392157, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_larv3"]
+material = SubResource("StandardMaterial3D_ljt7k")
+radius = 0.005
+height = 0.08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_w3d3v"]
+albedo_color = Color(0.0074191, 0.554688, 0, 1)
+emission_enabled = true
+emission = Color(0, 1, 0, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2tmdj"]
+material = SubResource("StandardMaterial3D_w3d3v")
+radius = 0.005
+height = 0.08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_neryj"]
+albedo_color = Color(0.643137, 0, 0.452696, 1)
+emission_enabled = true
+emission = Color(1, 0, 0.7, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_0x5jc"]
+material = SubResource("StandardMaterial3D_neryj")
+radius = 0.005
+height = 0.08
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2apg7"]
+albedo_color = Color(0.643137, 0, 0.452696, 1)
+emission_enabled = true
+emission = Color(1, 0, 0.7, 1)
+emission_energy_multiplier = 0.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_7u3p2"]
+material = SubResource("StandardMaterial3D_2apg7")
+radius = 0.005
+height = 0.08
+
+[node name="UpgradeIndicator" type="Node3D" node_paths=PackedStringArray("decreaseTextMeshInscance", "increaseTextMeshInscance", "indicatorMaterialsInstances")]
+script = ExtResource("1_0xa31")
+decreaseLevelKey = 81
+increaseLevelKey = 87
+decreaseTextMeshInscance = NodePath("Model/ArrowLeft/Label")
+increaseTextMeshInscance = NodePath("Model/ArrowRight/Label")
+indicatorMaterialsInstances = [NodePath("Model/Lvl0"), NodePath("Model/Lvl1"), NodePath("Model/Lvl2"), NodePath("Model/Lvl3")]
+fadeDuration = 0.5
+toOneDurationPercentage = 0.5
+
+[node name="Model" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.005)
+
+[node name="Background" type="MeshInstance3D" parent="Model"]
+mesh = SubResource("BoxMesh_2tg7f")
+skeleton = NodePath("../..")
+
+[node name="ArrowLeft" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.005, 0, 0.007)
+mesh = SubResource("PrismMesh_qyyso")
+
+[node name="Label" type="MeshInstance3D" parent="Model/ArrowLeft"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, -1.17819e-10, -0.00269539, 0.00247084)
+mesh = SubResource("TextMesh_tbbom")
+
+[node name="ArrowRight" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0.0794427, -3.47255e-09, 0.00742717)
+mesh = SubResource("PrismMesh_qyyso")
+
+[node name="Label" type="MeshInstance3D" parent="Model/ArrowRight"]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -3.11717e-10, -0.00297088, 0.00247084)
+mesh = SubResource("TextMesh_r2q2l")
+skeleton = NodePath("../../ArrowLeft")
+
+[node name="Lvl0" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0177791, 0, 0.00596175)
+mesh = SubResource("CapsuleMesh_larv3")
+
+[node name="Lvl1" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0305429, 0, 0.00596175)
+mesh = SubResource("CapsuleMesh_2tmdj")
+
+[node name="Lvl2" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0432377, 0, 0.00596175)
+mesh = SubResource("CapsuleMesh_0x5jc")
+
+[node name="Lvl3" type="MeshInstance3D" parent="Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.055953, 0, 0.00596175)
+mesh = SubResource("CapsuleMesh_7u3p2")
