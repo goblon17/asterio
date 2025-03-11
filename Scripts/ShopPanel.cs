@@ -7,6 +7,10 @@ public partial class ShopPanel : Node3D
 
     [Export]
     private AnimationPlayer animationPlayer;
+    [Export]
+    private float openAnimationDuration;
+    [Export]
+    private float closeAnimationDuration;
 
     public ShopState State { get; private set; }
 
@@ -36,13 +40,13 @@ public partial class ShopPanel : Node3D
     private void ShowPanel()
     {
         State = ShopState.Opening;
-        animationPlayer.Play("Move");
+        animationPlayer.Play("Move", customSpeed: 1 / openAnimationDuration);
     }
 
     private void HidePanel()
     {
         State = ShopState.Closing;
-        animationPlayer.PlayBackwards("Move");
+        animationPlayer.Play("Move", customSpeed: -1 / closeAnimationDuration, fromEnd: true);
     }
 
     private void OnAnimationFinished(StringName animName)
