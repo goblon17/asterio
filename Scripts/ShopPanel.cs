@@ -10,6 +10,11 @@ public partial class ShopPanel : Node3D
 
     public ShopState State { get; private set; }
 
+    public override void _Ready()
+    {
+        animationPlayer.AnimationFinished += OnAnimationFinished;
+    }
+
     public override void _Input(InputEvent @event)
     {
         if (@event is InputEventMouseButton mouseButton)
@@ -30,33 +35,27 @@ public partial class ShopPanel : Node3D
 
     private void ShowPanel()
     {
-        animationPlayer.AnimationFinished -= OnPanelHidden;
-        animationPlayer.Play("Move");
-        animationPlayer.AnimationFinished += OnPanelShown;
-
         State = ShopState.Opening;
-    }
-
-    private void OnPanelShown(StringName _)
-    {
-        animationPlayer.AnimationFinished -= OnPanelShown;
-
-        State = ShopState.Opened;
+        animationPlayer.Play("Move");
     }
 
     private void HidePanel()
     {
-        animationPlayer.AnimationFinished -= OnPanelShown;
-        animationPlayer.PlayBackwards("Move");
-        animationPlayer.AnimationFinished += OnPanelHidden;
-
         State = ShopState.Closing;
+        animationPlayer.PlayBackwards("Move");
     }
 
-    private void OnPanelHidden(StringName _)
+    private void OnAnimationFinished(StringName animName)
     {
-        animationPlayer.AnimationFinished -= OnPanelHidden;
+        if (State == ShopState.Opening)
+        {
+            State = ShopState.Opened;
+        }
+        else
+        {
+            State = ShopState.Closed;
+        }
 
-        State = ShopState.Closed;
+
     }
 }
