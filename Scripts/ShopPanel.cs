@@ -47,14 +47,7 @@ public partial class ShopPanel : Node3D
 
     private void OnAnimationFinished(StringName animName)
     {
-        if (State == ShopState.Opening)
-        {
-            State = ShopState.Opened;
-        }
-        else
-        {
-            State = ShopState.Closed;
-        }
+        State = State == ShopState.Opening ? ShopState.Opened : ShopState.Closed;
 
 
     }

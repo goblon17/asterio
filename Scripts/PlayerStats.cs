@@ -12,7 +12,7 @@ public partial class PlayerStats : Node3D
     [Export]
     public float health;
     [Export]
-    public float heat;
+    public float heatPerShot;
     [Export]
     public float heatReductionSpeed;
 
