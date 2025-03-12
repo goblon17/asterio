@@ -50,14 +50,14 @@ public partial class Player : Node3D
         {
             if (CurrentHeat > 0)
             {
-                CurrentHeat -= PlayerStats.Instance.heatReductionSpeed * (float)delta;
+                CurrentHeat -= PlayerStats.Instance.HeatReductionSpeed * (float)delta;
                 if (CurrentHeat < 0)
                 {
                     CurrentHeat = 0;
                 }
             }
 
-            if (mouseButtonDown && CurrentHeat < 1 - PlayerStats.Instance.heatPerShot)
+            if (mouseButtonDown && CurrentHeat < 1 - PlayerStats.Instance.HeatPerShot)
             {
                 Fire();
             }
@@ -68,13 +68,13 @@ public partial class Player : Node3D
     {
         cannons[currentCannonIndex].Fire();
         currentCannonIndex = Mathf.PosMod(currentCannonIndex + 1, cannons.Length);
-        timer = 1 / PlayerStats.Instance.fireRate;
-        CurrentHeat += PlayerStats.Instance.heatPerShot;
+        timer = 1 / PlayerStats.Instance.FireRate;
+        CurrentHeat += PlayerStats.Instance.HeatPerShot;
 
         rayCast.ForceRaycastUpdate();
         if (rayCast.IsColliding() && rayCast.GetCollider() is Asteroid asteroid)
         {
-            asteroid.TakeDamage(PlayerStats.Instance.damage, rayCast.GetCollisionPoint(), rayCast.GetCollisionNormal());
+            asteroid.TakeDamage(PlayerStats.Instance.Damage, rayCast.GetCollisionPoint(), rayCast.GetCollisionNormal());
         }
     }
 

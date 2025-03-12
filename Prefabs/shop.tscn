@@ -115,8 +115,3 @@ increaseLevelKey = 83
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0741821, -0.021, -0.0499866)
 decreaseLevelKey = 68
 increaseLevelKey = 70
-
-[editable path="Arm1/Arm2/Panel/Background/UpgradeIndicator"]
-[editable path="Arm1/Arm2/Panel/Background/UpgradeIndicator2"]
-[editable path="Arm1/Arm2/Panel/Background/UpgradeIndicator3"]
-[editable path="Arm1/Arm2/Panel/Background/UpgradeIndicator4"]

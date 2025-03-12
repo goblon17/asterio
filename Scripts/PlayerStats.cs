@@ -6,15 +6,20 @@ public partial class PlayerStats : Node3D
     public static PlayerStats Instance { get; private set; }
 
     [Export]
-    public double fireRate;
+    private PlayerStat fireRate;
     [Export]
-    public float damage;
+    private PlayerStat damage;
     [Export]
     public float health;
     [Export]
-    public float heatPerShot;
+    private PlayerStat heatPerShot;
     [Export]
-    public float heatReductionSpeed;
+    private PlayerStat heatReductionSpeed;
+
+    public float FireRate => fireRate.GetStatValue(0, 0);
+    public float Damage => damage.GetStatValue(0, 0);
+    public float HeatPerShot => heatPerShot.GetStatValue(0, 0);
+    public float HeatReductionSpeed => heatReductionSpeed.GetStatValue(0, 0);
 
     public override void _EnterTree()
     {

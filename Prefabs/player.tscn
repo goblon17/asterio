@@ -1,13 +1,53 @@
-[gd_scene load_steps=17 format=3 uid="uid://cekoxcdqlj6ky"]
+[gd_scene load_steps=26 format=3 uid="uid://cekoxcdqlj6ky"]
 
 [ext_resource type="PackedScene" uid="uid://bf4m2dngk5365" path="res://Prefabs/cannon.tscn" id="1_uskap"]
 [ext_resource type="Script" path="res://Scripts/Player.cs" id="1_wgfk8"]
 [ext_resource type="Script" path="res://Scripts/PlayerStats.cs" id="2_jvlfs"]
+[ext_resource type="Script" path="res://Scripts/Resources/PlayerStat.cs" id="3_cj3vm"]
 [ext_resource type="Script" path="res://Scripts/PlayerCamera.cs" id="3_cnrpu"]
 [ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="4_uhb3p"]
 [ext_resource type="PackedScene" uid="uid://cps8g8eic347m" path="res://Prefabs/heat_panel.tscn" id="5_6j8bg"]
 [ext_resource type="PackedScene" uid="uid://kedsvklwh0d5" path="res://Prefabs/health_panel.tscn" id="6_i66um"]
 [ext_resource type="PackedScene" uid="uid://6rqqm4kr8myh" path="res://Prefabs/shop.tscn" id="8_m27bf"]
+
+[sub_resource type="Curve" id="Curve_kfyeh"]
+max_value = 4.0
+_data = [Vector2(0, 4), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Resource" id="Resource_0faoc"]
+script = ExtResource("3_cj3vm")
+valueByUpgrade = SubResource("Curve_kfyeh")
+curveWidth = 1.0
+
+[sub_resource type="Curve" id="Curve_pci43"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Resource" id="Resource_igm7j"]
+script = ExtResource("3_cj3vm")
+valueByUpgrade = SubResource("Curve_pci43")
+curveWidth = 1.0
+
+[sub_resource type="Curve" id="Curve_xdtdo"]
+max_value = 0.1
+_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Resource" id="Resource_7kvch"]
+script = ExtResource("3_cj3vm")
+valueByUpgrade = SubResource("Curve_xdtdo")
+curveWidth = 1.0
+
+[sub_resource type="Curve" id="Curve_gahor"]
+max_value = 0.1
+_data = [Vector2(0, 0.1), 0.0, 0.0, 0, 0]
+point_count = 1
+
+[sub_resource type="Resource" id="Resource_yy5dl"]
+script = ExtResource("3_cj3vm")
+valueByUpgrade = SubResource("Curve_gahor")
+curveWidth = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_si5ny"]
 albedo_texture = ExtResource("4_uhb3p")
@@ -55,11 +95,11 @@ rayCast = NodePath("RayCast3D")
 
 [node name="Stats" type="Node3D" parent="."]
 script = ExtResource("2_jvlfs")
-fireRate = 4.0
-damage = 1.0
+fireRate = SubResource("Resource_0faoc")
+damage = SubResource("Resource_igm7j")
 health = 5.0
-heatPerShot = 0.1
-heatReductionSpeed = 0.1
+heatPerShot = SubResource("Resource_7kvch")
+heatReductionSpeed = SubResource("Resource_yy5dl")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 enabled = false
