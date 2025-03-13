@@ -11,6 +11,14 @@ public partial class ShopPanel : Node3D
     private float openAnimationDuration;
     [Export]
     private float closeAnimationDuration;
+    [Export]
+    public UpgradeIndicator DamageUpgrade { get; private set; }
+    [Export]
+    public UpgradeIndicator HeatPerShotUpgrade { get; private set; }
+    [Export]
+    public UpgradeIndicator FireRateUpgrade { get; private set; }
+    [Export]
+    public UpgradeIndicator HeatReductionUpgrade { get; private set; }
 
     public ShopState State { get; private set; }
 

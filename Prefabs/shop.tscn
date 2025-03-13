@@ -60,12 +60,16 @@ height = 0.5
 [sub_resource type="BoxMesh" id="BoxMesh_8qeqp"]
 size = Vector3(0.6, 0.4, 0.1)
 
-[node name="Shop" type="Node3D" node_paths=PackedStringArray("animationPlayer")]
+[node name="Shop" type="Node3D" node_paths=PackedStringArray("animationPlayer", "DamageUpgrade", "HeatPerShotUpgrade", "FireRateUpgrade", "HeatReductionUpgrade")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.2)
 script = ExtResource("1_niylr")
 animationPlayer = NodePath("Animations")
 openAnimationDuration = 0.3
 closeAnimationDuration = 0.5
+DamageUpgrade = NodePath("Arm1/Arm2/Panel/Background/Damage")
+HeatPerShotUpgrade = NodePath("Arm1/Arm2/Panel/Background/HeatPerShot")
+FireRateUpgrade = NodePath("Arm1/Arm2/Panel/Background/FireRate")
+HeatReductionUpgrade = NodePath("Arm1/Arm2/Panel/Background/HeatReduction")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
@@ -74,7 +78,7 @@ libraries = {
 }
 
 [node name="Arm1" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.642789, -0.766043, 0, 0.766043, -0.642789, 0, -0.631056, 0.658821)
+transform = Transform3D(1, 0, 0, 0, 0.95001, -0.312219, 0, 0.312219, 0.95001, 0, -0.631056, 0.658821)
 
 [node name="Mesh" type="MeshInstance3D" parent="Arm1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
@@ -82,7 +86,7 @@ material_override = SubResource("StandardMaterial3D_2qhx3")
 mesh = SubResource("CapsuleMesh_dx6ox")
 
 [node name="Arm2" type="Node3D" parent="Arm1"]
-transform = Transform3D(1, 0, 0, 0, -0.947222, -0.320581, 0, 0.320581, -0.947222, 0, 0.45, 0)
+transform = Transform3D(1, 0, 0, 0, 0.159882, 0.987137, 0, -0.987137, 0.159882, 0, 0.45, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Arm1/Arm2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
@@ -90,7 +94,7 @@ material_override = SubResource("StandardMaterial3D_2qhx3")
 mesh = SubResource("CapsuleMesh_dx6ox")
 
 [node name="Panel" type="Node3D" parent="Arm1/Arm2"]
-transform = Transform3D(1, 0, 0, 0, -0.94548, -0.325682, 0, 0.325682, -0.94548, 0, 0.45, 5.96046e-08)
+transform = Transform3D(1, 0, 0, 0, 0.887818, 0.460196, 0, -0.460196, 0.887818, 0, 0.45, 5.96046e-08)
 
 [node name="Background" type="MeshInstance3D" parent="Arm1/Arm2/Panel"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -98,20 +102,20 @@ material_override = SubResource("StandardMaterial3D_2qhx3")
 mesh = SubResource("BoxMesh_8qeqp")
 skeleton = NodePath("../../../../Animations")
 
-[node name="UpgradeIndicator" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
+[node name="Damage" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.163982, 0.115177, -0.0499866)
 
-[node name="UpgradeIndicator2" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
+[node name="HeatPerShot" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0741821, 0.115177, -0.0499866)
 decreaseLevelKey = 69
 increaseLevelKey = 82
 
-[node name="UpgradeIndicator3" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
+[node name="FireRate" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.163982, -0.021, -0.0499866)
 decreaseLevelKey = 65
 increaseLevelKey = 83
 
-[node name="UpgradeIndicator4" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
+[node name="HeatReduction" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0741821, -0.021, -0.0499866)
 decreaseLevelKey = 68
 increaseLevelKey = 70
