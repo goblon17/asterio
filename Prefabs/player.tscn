@@ -100,6 +100,9 @@ damage = SubResource("Resource_igm7j")
 health = 5.0
 heatPerShot = SubResource("Resource_7kvch")
 heatReductionSpeed = SubResource("Resource_yy5dl")
+initialLevelPoints = 2
+requiredAsteroidsForLevel = 5
+requiredAsteroidsForLevelIncrease = 1
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 enabled = false

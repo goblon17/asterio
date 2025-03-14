@@ -104,12 +104,14 @@ public partial class UpgradeIndicator : Node3D
         if (CurrentLevel > 0)
         {
             CurrentLevel--;
+            shopPanel.ReturnPoint();
         }
     }
 
     private void IncreaseLevel()
     {
-        if (CurrentLevel < indicatorMaterials.Length - 1)
+        if (CurrentLevel < indicatorMaterials.Length - 1 &&
+            shopPanel.TryGetPoint())
         {
             CurrentLevel++;
         }

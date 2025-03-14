@@ -22,9 +22,23 @@ public partial class ShopPanel : Node3D
 
     public ShopState State { get; private set; }
 
+    private PlayerStats playerStats;
+
+    private int availablePoints;
+
     public override void _Ready()
     {
         animationPlayer.AnimationFinished += OnAnimationFinished;
+        playerStats = PlayerStats.Instance;
+        playerStats.LevelIncreased += OnPlayerLevelIncreased;
+        playerStats.LevelProgressChanged += OnLevelProgressChanged;
+        availablePoints = playerStats.CurrentLevelPoints;
+    }
+
+    private void OnPlayerLevelIncreased()
+    {
+        availablePoints++;
+        UpdatePointsDisplay();
     }
 
     public override void _Input(InputEvent @event)
@@ -61,6 +75,36 @@ public partial class ShopPanel : Node3D
     {
         State = State == ShopState.Opening ? ShopState.Opened : ShopState.Closed;
 
+
+    }
+
+    public bool TryGetPoint()
+    {
+        if (availablePoints > 0)
+        {
+            availablePoints--;
+            UpdatePointsDisplay();
+            return true;
+        }
+        return false;
+    }
+
+    public void ReturnPoint()
+    {
+        if (availablePoints < playerStats.CurrentLevelPoints)
+        {
+            availablePoints++;
+            UpdatePointsDisplay();
+        }
+    }
+
+    private void UpdatePointsDisplay()
+    {
+
+    }
+
+    private void OnLevelProgressChanged()
+    {
 
     }
 }

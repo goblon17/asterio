@@ -3,6 +3,8 @@ using System;
 
 public partial class AsteroidSpawner : Node3D
 {
+    public static AsteroidSpawner Instance { get; private set; }
+
 	[Export]
 	private double cooldown;
     [Export]
@@ -18,9 +20,21 @@ public partial class AsteroidSpawner : Node3D
     [Export]
     private ConcavePolygonShape3D[] possibleCollisions;
 
+    public event Action<Asteroid> AsteroidDied;
+
     private RandomNumberGenerator rng = new RandomNumberGenerator();
 
     private double timer = double.MaxValue;
+
+    public override void _EnterTree()
+    {
+        Instance = this;
+    }
+
+    public override void _ExitTree()
+    {
+        Instance = null;
+    }
 
     public override void _Process(double delta)
     {
@@ -43,5 +57,12 @@ public partial class AsteroidSpawner : Node3D
 
         int i = rng.RandiRange(0, possibleMehses.Length - 1);
         asteroid.SetAsteroid(possibleMehses[i], possibleCollisions[i]);
+        asteroid.Died += OnAsteroidDeath;
+    }
+
+    private void OnAsteroidDeath(Asteroid asteroid)
+    {
+        GameValues.Instance.score += 1;
+        AsteroidDied?.Invoke(asteroid);
     }
 }

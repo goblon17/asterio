@@ -15,6 +15,8 @@ public partial class Asteroid : RigidBody3D
 	[Export]
 	private PackedScene impactParticle;
 
+	public event Action<Asteroid> Died;
+
 	public float Damage => damage;
 
     public override void _Ready()
@@ -34,13 +36,14 @@ public partial class Asteroid : RigidBody3D
 
         if ((health -= dmg) <= 0)
         {
-            GameValues.Instance.score += 1;
             Die();
         }
     }
 
 	public void Die()
 	{
+		Died?.Invoke(this);
+
         Node parent = GetParent();
         foreach (ImpactParticle particle in GetChildren().OfType<ImpactParticle>())
 		{
