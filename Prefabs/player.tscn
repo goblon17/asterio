@@ -90,7 +90,7 @@ orientation = 2
 script = ExtResource("1_wgfk8")
 sensitivity = Vector2(0.1, 0.1)
 angleRange = Vector2(30, 60)
-cannons = [NodePath("CannonUpLeft"), NodePath("CannonUpRight"), NodePath("CannonDownLeft"), NodePath("CannonDownRight")]
+cannons = [NodePath("Cannons/CannonUpLeft"), NodePath("Cannons/CannonUpRight"), NodePath("Cannons/CannonDownLeft"), NodePath("Cannons/CannonDownRight")]
 rayCast = NodePath("RayCast3D")
 
 [node name="Stats" type="Node3D" parent="."]
@@ -113,17 +113,20 @@ script = ExtResource("3_cnrpu")
 shakeRange = Vector2(0.1, 0.1)
 shakeDuration = 1.0
 
-[node name="CannonUpLeft" parent="." instance=ExtResource("1_uskap")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 4.69059, 2.68417, 2.81272)
+[node name="Cannons" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
 
-[node name="CannonUpRight" parent="." instance=ExtResource("1_uskap")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -4.691, 2.68417, 2.81272)
+[node name="CannonUpLeft" parent="Cannons" instance=ExtResource("1_uskap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 4.69059, 2.68417, 3.01272)
 
-[node name="CannonDownLeft" parent="." instance=ExtResource("1_uskap")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 4.691, -2.684, 2.813)
+[node name="CannonUpRight" parent="Cannons" instance=ExtResource("1_uskap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -4.691, 2.68417, 3.01272)
 
-[node name="CannonDownRight" parent="." instance=ExtResource("1_uskap")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -4.691, -2.684, 2.813)
+[node name="CannonDownLeft" parent="Cannons" instance=ExtResource("1_uskap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, 4.691, -2.684, 3.013)
+
+[node name="CannonDownRight" parent="Cannons" instance=ExtResource("1_uskap")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 0.4, -4.691, -2.684, 3.013)
 
 [node name="Cabin" type="Node3D" parent="."]
 
