@@ -6,6 +6,13 @@
 [ext_resource type="Material" uid="uid://4w4nb5f0eegw" path="res://Resources/Materials/black_material.material" id="4_m0jk3"]
 [ext_resource type="Material" uid="uid://dng3rn2wh1fec" path="res://Resources/Materials/white_meterial.material" id="5_j5r8a"]
 
+[sub_resource type="TextMesh" id="TextMesh_enrxf"]
+material = ExtResource("5_j5r8a")
+text = "99"
+font_size = 48
+pixel_size = 0.001
+depth = 0.001
+
 [sub_resource type="Animation" id="Animation_dmed3"]
 resource_name = "Move"
 tracks/0/type = "value"
@@ -64,24 +71,17 @@ size = Vector3(0.6, 0.4, 0.1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3eyvm"]
 material = ExtResource("4_m0jk3")
-size = Vector3(0.4, 0.025, 0.01)
+size = Vector3(0.425, 0.025, 0.01)
 
 [sub_resource type="QuadMesh" id="QuadMesh_3hoca"]
 material = ExtResource("5_j5r8a")
-size = Vector2(0.39, 0.015)
+size = Vector2(0.415, 0.015)
 
 [sub_resource type="BoxMesh" id="BoxMesh_2aiap"]
 material = ExtResource("4_m0jk3")
 size = Vector3(0.07, 0.07, 0.01)
 
-[sub_resource type="TextMesh" id="TextMesh_enrxf"]
-material = ExtResource("5_j5r8a")
-text = "99"
-font_size = 48
-pixel_size = 0.001
-depth = 0.001
-
-[node name="Shop" type="Node3D" node_paths=PackedStringArray("animationPlayer", "DamageUpgrade", "HeatPerShotUpgrade", "FireRateUpgrade", "HeatReductionUpgrade")]
+[node name="Shop" type="Node3D" node_paths=PackedStringArray("animationPlayer", "DamageUpgrade", "HeatPerShotUpgrade", "FireRateUpgrade", "HeatReductionUpgrade", "pointsBar")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.2)
 script = ExtResource("1_niylr")
 animationPlayer = NodePath("Animations")
@@ -91,6 +91,8 @@ DamageUpgrade = NodePath("Arm1/Arm2/Panel/Background/Damage")
 HeatPerShotUpgrade = NodePath("Arm1/Arm2/Panel/Background/HeatPerShot")
 FireRateUpgrade = NodePath("Arm1/Arm2/Panel/Background/FireRate")
 HeatReductionUpgrade = NodePath("Arm1/Arm2/Panel/Background/HeatReduction")
+pointsCount = SubResource("TextMesh_enrxf")
+pointsBar = NodePath("Arm1/Arm2/Panel/Background/AsteroidCount/ProgressBarBackground/Anchor")
 
 [node name="Animations" type="AnimationPlayer" parent="."]
 root_node = NodePath("../..")
@@ -145,7 +147,7 @@ increaseLevelKey = 70
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.127, -0.05)
 
 [node name="ProgressBarBackground" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/AsteroidCount"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.039, -0.005, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0515748, -0.005, 0)
 mesh = SubResource("BoxMesh_3eyvm")
 skeleton = NodePath("../..")
 

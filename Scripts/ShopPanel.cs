@@ -19,6 +19,10 @@ public partial class ShopPanel : Node3D
     public UpgradeIndicator FireRateUpgrade { get; private set; }
     [Export]
     public UpgradeIndicator HeatReductionUpgrade { get; private set; }
+    [Export]
+    private TextMesh pointsCount;
+    [Export]
+    private Node3D pointsBar;
 
     public ShopState State { get; private set; }
 
@@ -31,8 +35,10 @@ public partial class ShopPanel : Node3D
         animationPlayer.AnimationFinished += OnAnimationFinished;
         playerStats = PlayerStats.Instance;
         playerStats.LevelIncreased += OnPlayerLevelIncreased;
-        playerStats.LevelProgressChanged += OnLevelProgressChanged;
+        playerStats.LevelProgressChanged += UpdateLevelProgress;
         availablePoints = playerStats.CurrentLevelPoints;
+        UpdatePointsDisplay();
+        UpdateLevelProgress();
     }
 
     private void OnPlayerLevelIncreased()
@@ -100,11 +106,13 @@ public partial class ShopPanel : Node3D
 
     private void UpdatePointsDisplay()
     {
-
+        pointsCount.Text = availablePoints.ToString();
     }
 
-    private void OnLevelProgressChanged()
+    private void UpdateLevelProgress()
     {
-
+        Vector3 scale = pointsBar.Scale;
+        scale.X = Mathf.Max(0.001f, playerStats.LevelProgressPrecent);
+        pointsBar.Scale = scale;
     }
 }
