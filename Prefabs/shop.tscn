@@ -1,8 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://6rqqm4kr8myh"]
+[gd_scene load_steps=15 format=3 uid="uid://6rqqm4kr8myh"]
 
 [ext_resource type="Script" path="res://Scripts/ShopPanel.cs" id="1_niylr"]
 [ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="2_1hn4w"]
 [ext_resource type="PackedScene" uid="uid://xo0f14u51odj" path="res://Prefabs/upgrade_indicator.tscn" id="3_bdtak"]
+[ext_resource type="Material" uid="uid://4w4nb5f0eegw" path="res://Resources/Materials/black_material.material" id="4_m0jk3"]
+[ext_resource type="Material" uid="uid://dng3rn2wh1fec" path="res://Resources/Materials/white_meterial.material" id="5_j5r8a"]
 
 [sub_resource type="Animation" id="Animation_dmed3"]
 resource_name = "Move"
@@ -59,6 +61,25 @@ height = 0.5
 
 [sub_resource type="BoxMesh" id="BoxMesh_8qeqp"]
 size = Vector3(0.6, 0.4, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3eyvm"]
+material = ExtResource("4_m0jk3")
+size = Vector3(0.4, 0.025, 0.01)
+
+[sub_resource type="QuadMesh" id="QuadMesh_3hoca"]
+material = ExtResource("5_j5r8a")
+size = Vector2(0.39, 0.015)
+
+[sub_resource type="BoxMesh" id="BoxMesh_2aiap"]
+material = ExtResource("4_m0jk3")
+size = Vector3(0.07, 0.07, 0.01)
+
+[sub_resource type="TextMesh" id="TextMesh_enrxf"]
+material = ExtResource("5_j5r8a")
+text = "99"
+font_size = 48
+pixel_size = 0.001
+depth = 0.001
 
 [node name="Shop" type="Node3D" node_paths=PackedStringArray("animationPlayer", "DamageUpgrade", "HeatPerShotUpgrade", "FireRateUpgrade", "HeatReductionUpgrade")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.2)
@@ -119,3 +140,28 @@ increaseLevelKey = 83
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0741821, -0.021, -0.0499866)
 decreaseLevelKey = 68
 increaseLevelKey = 70
+
+[node name="AsteroidCount" type="Node3D" parent="Arm1/Arm2/Panel/Background"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.127, -0.05)
+
+[node name="ProgressBarBackground" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/AsteroidCount"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.039, -0.005, 0)
+mesh = SubResource("BoxMesh_3eyvm")
+skeleton = NodePath("../..")
+
+[node name="Anchor" type="Node3D" parent="Arm1/Arm2/Panel/Background/AsteroidCount/ProgressBarBackground"]
+transform = Transform3D(1, -8.67362e-19, 0, 8.67362e-19, 1, 0, 0, 0, 1, -0.195, 0, 0.006)
+
+[node name="ProgressBar" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/AsteroidCount/ProgressBarBackground/Anchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.195, 0, 3.72529e-09)
+mesh = SubResource("QuadMesh_3hoca")
+skeleton = NodePath("../..")
+
+[node name="NumberBackground" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/AsteroidCount"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.214, -0.005, 0)
+mesh = SubResource("BoxMesh_2aiap")
+skeleton = NodePath("../..")
+
+[node name="Number" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/AsteroidCount/NumberBackground"]
+transform = Transform3D(1, 0, 0, 8.67362e-19, 1, 0, 0, 0, 1, 0, 6.85453e-07, 0.00582176)
+mesh = SubResource("TextMesh_enrxf")
