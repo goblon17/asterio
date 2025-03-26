@@ -115,6 +115,8 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 
 script = ExtResource("3_cnrpu")
 shakeRange = Vector2(0.1, 0.1)
 shakeDuration = 1.0
+fovRange = Vector2(50, 75)
+fovAnimationDuration = 0.2
 
 [node name="Cannons" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.2)
