@@ -130,21 +130,18 @@ transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.1639
 
 [node name="HeatPerShot" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0741821, 0.115177, -0.0499866)
-decreaseLevelKey = 69
-increaseLevelKey = 82
+changeLevelKey = 69
 
 [node name="FireRate" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.163982, -0.021, -0.0499866)
-decreaseLevelKey = 65
-increaseLevelKey = 83
+changeLevelKey = 83
 
 [node name="HeatReduction" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0741821, -0.021, -0.0499866)
-decreaseLevelKey = 68
-increaseLevelKey = 70
+changeLevelKey = 68
 
 [node name="AsteroidCount" type="Node3D" parent="Arm1/Arm2/Panel/Background"]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, -0.127, -0.05)
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00910801, -0.127, -0.05)
 
 [node name="ProgressBarBackground" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/AsteroidCount"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0515748, -0.005, 0)

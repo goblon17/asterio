@@ -5,9 +5,7 @@ using System.Linq;
 public partial class UpgradeIndicator : Node3D
 {
     [Export]
-    private Key decreaseLevelKey;
-    [Export]
-    private Key increaseLevelKey;
+    private Key changeLevelKey;
     [Export]
     private MeshInstance3D decreaseTextMeshInscance;
     [Export]
@@ -19,13 +17,13 @@ public partial class UpgradeIndicator : Node3D
     [Export(hint: PropertyHint.Range, "0, 1")]
     private float toOneDurationPercentage;
 
-    private TextMesh decreaseLevelTextMesh;
-    private TextMesh increaseLevelTextMesh;
     private StandardMaterial3D[] indicatorMaterials;
 
     public int CurrentLevel { get; private set; } = 0;
 
     private ShopPanel shopPanel;
+
+    private bool shiftHeld = false;
 
     private T FindParentOfType<T>() where T : Node
     {
@@ -55,13 +53,11 @@ public partial class UpgradeIndicator : Node3D
             indicatorMaterials[i] = newMaterial;
         }
 
-        decreaseLevelTextMesh = decreaseTextMeshInscance.Mesh.Duplicate() as TextMesh;
-        decreaseTextMeshInscance.Mesh = decreaseLevelTextMesh;
-        decreaseLevelTextMesh.Text = OS.GetKeycodeString(DisplayServer.KeyboardGetKeycodeFromPhysical(decreaseLevelKey));
+        TextMesh keyTextMesh = decreaseTextMeshInscance.Mesh.Duplicate() as TextMesh;
+        keyTextMesh.Text = OS.GetKeycodeString(DisplayServer.KeyboardGetKeycodeFromPhysical(changeLevelKey));
 
-        increaseLevelTextMesh = increaseTextMeshInscance.Mesh.Duplicate() as TextMesh;
-        increaseTextMeshInscance.Mesh = increaseLevelTextMesh;
-        increaseLevelTextMesh.Text = OS.GetKeycodeString(DisplayServer.KeyboardGetKeycodeFromPhysical(increaseLevelKey));
+        decreaseTextMeshInscance.Mesh = keyTextMesh;
+        increaseTextMeshInscance.Mesh = keyTextMesh;
     }
 
     public override void _Process(double delta)
@@ -86,15 +82,23 @@ public partial class UpgradeIndicator : Node3D
             return;
         }
 
-        if (@event is InputEventKey inputKey && inputKey.Pressed)
+        if (@event is InputEventKey inputKey)
         {
-            if (inputKey.PhysicalKeycode == decreaseLevelKey)
+            if (inputKey.PhysicalKeycode == Key.Shift)
             {
-                DecreaseLevel();
+                shiftHeld = inputKey.Pressed;
             }
-            else if (inputKey.PhysicalKeycode == increaseLevelKey)
+
+            if (inputKey.Pressed && inputKey.PhysicalKeycode == changeLevelKey)
             {
-                IncreaseLevel();
+                if (shiftHeld)
+                {
+                    DecreaseLevel();
+                }
+                else
+                {
+                    IncreaseLevel();
+                }
             }
         }
     }
