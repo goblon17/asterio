@@ -1,10 +1,13 @@
-[gd_scene load_steps=15 format=3 uid="uid://6rqqm4kr8myh"]
+[gd_scene load_steps=23 format=3 uid="uid://6rqqm4kr8myh"]
 
 [ext_resource type="Script" path="res://Scripts/ShopPanel.cs" id="1_niylr"]
 [ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="2_1hn4w"]
 [ext_resource type="PackedScene" uid="uid://xo0f14u51odj" path="res://Prefabs/upgrade_indicator.tscn" id="3_bdtak"]
 [ext_resource type="Material" uid="uid://4w4nb5f0eegw" path="res://Resources/Materials/black_material.material" id="4_m0jk3"]
 [ext_resource type="Material" uid="uid://dng3rn2wh1fec" path="res://Resources/Materials/white_meterial.material" id="5_j5r8a"]
+[ext_resource type="Script" path="res://Scripts/LeverSwitchAnimator.cs" id="6_4qkeb"]
+[ext_resource type="ArrayMesh" uid="uid://bltf4m1lfo6av" path="res://Models/asteroid4.res" id="6_q4wka"]
+[ext_resource type="Texture2D" uid="uid://l05gxks7odyr" path="res://Textures/stone.png" id="7_tyo82"]
 
 [sub_resource type="TextMesh" id="TextMesh_enrxf"]
 material = ExtResource("5_j5r8a")
@@ -81,6 +84,27 @@ size = Vector2(0.415, 0.015)
 material = ExtResource("4_m0jk3")
 size = Vector3(0.07, 0.07, 0.01)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xni40"]
+albedo_color = Color(0.47, 0.0861667, 0, 1)
+albedo_texture = ExtResource("2_1hn4w")
+
+[sub_resource type="BoxMesh" id="BoxMesh_fbxe7"]
+material = SubResource("StandardMaterial3D_xni40")
+size = Vector3(0.025, 0.07, 0.035)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yjkll"]
+albedo_texture = ExtResource("2_1hn4w")
+metallic_specular = 1.0
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_hju21"]
+material = SubResource("StandardMaterial3D_yjkll")
+radius = 0.01
+height = 0.09
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tkcf8"]
+albedo_color = Color(0.723897, 1, 0.884429, 1)
+albedo_texture = ExtResource("7_tyo82")
+
 [node name="Shop" type="Node3D" node_paths=PackedStringArray("animationPlayer", "DamageUpgrade", "HeatPerShotUpgrade", "FireRateUpgrade", "HeatReductionUpgrade", "pointsBar")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.2)
 script = ExtResource("1_niylr")
@@ -101,7 +125,7 @@ libraries = {
 }
 
 [node name="Arm1" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -0.642789, -0.766043, 0, 0.766043, -0.642789, 0, -0.631056, 0.658821)
+transform = Transform3D(1, 0, 0, 0, 0.95001, -0.312219, 0, 0.312219, 0.95001, 0, -0.631056, 0.658821)
 
 [node name="Mesh" type="MeshInstance3D" parent="Arm1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
@@ -109,7 +133,7 @@ material_override = SubResource("StandardMaterial3D_2qhx3")
 mesh = SubResource("CapsuleMesh_dx6ox")
 
 [node name="Arm2" type="Node3D" parent="Arm1"]
-transform = Transform3D(1, 0, 0, 0, -0.947222, -0.320581, 0, 0.320581, -0.947222, 0, 0.45, 0)
+transform = Transform3D(1, 0, 0, 0, 0.159882, 0.987137, 0, -0.987137, 0.159882, 0, 0.45, 0)
 
 [node name="Mesh" type="MeshInstance3D" parent="Arm1/Arm2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.225, 0)
@@ -117,7 +141,7 @@ material_override = SubResource("StandardMaterial3D_2qhx3")
 mesh = SubResource("CapsuleMesh_dx6ox")
 
 [node name="Panel" type="Node3D" parent="Arm1/Arm2"]
-transform = Transform3D(1, 0, 0, 0, -0.94548, -0.325682, 0, 0.325682, -0.94548, 0, 0.45, 5.96046e-08)
+transform = Transform3D(1, 0, 0, 0, 0.887818, 0.460196, 0, -0.460196, 0.887818, 0, 0.45, 5.96046e-08)
 
 [node name="Background" type="MeshInstance3D" parent="Arm1/Arm2/Panel"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -164,3 +188,24 @@ skeleton = NodePath("../..")
 [node name="Number" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/AsteroidCount/NumberBackground"]
 transform = Transform3D(1, 0, 0, 8.67362e-19, 1, 0, 0, 0, 1, 0, 6.85453e-07, 0.00582176)
 mesh = SubResource("TextMesh_enrxf")
+
+[node name="Switch" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.304125, -0.0641551, -0.00969535)
+mesh = SubResource("BoxMesh_fbxe7")
+
+[node name="LeverAnchor" type="Node3D" parent="Arm1/Arm2/Panel/Background/Switch"]
+transform = Transform3D(0.5, 0.866025, 0, -0.866025, 0.5, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("6_4qkeb")
+angleRanges = Vector2(-60, -120)
+duration = 0.15
+
+[node name="Lever" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Switch/LeverAnchor"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -2.76714e-17, 0.0470604, 0)
+mesh = SubResource("CapsuleMesh_hju21")
+skeleton = NodePath("../..")
+
+[node name="Knob" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Switch/LeverAnchor"]
+transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -0.00267325, 0.0873109, 1.16851e-10)
+mesh = ExtResource("6_q4wka")
+skeleton = NodePath("../Lever")
+surface_material_override/0 = SubResource("StandardMaterial3D_tkcf8")
