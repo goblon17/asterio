@@ -1,13 +1,17 @@
-[gd_scene load_steps=23 format=3 uid="uid://6rqqm4kr8myh"]
+[gd_scene load_steps=35 format=3 uid="uid://6rqqm4kr8myh"]
 
 [ext_resource type="Script" path="res://Scripts/ShopPanel.cs" id="1_niylr"]
 [ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="2_1hn4w"]
 [ext_resource type="PackedScene" uid="uid://xo0f14u51odj" path="res://Prefabs/upgrade_indicator.tscn" id="3_bdtak"]
 [ext_resource type="Material" uid="uid://4w4nb5f0eegw" path="res://Resources/Materials/black_material.material" id="4_m0jk3"]
+[ext_resource type="Texture2D" uid="uid://db5yv8eojqek" path="res://Textures/damage_icon.png" id="5_dfppe"]
 [ext_resource type="Material" uid="uid://dng3rn2wh1fec" path="res://Resources/Materials/white_meterial.material" id="5_j5r8a"]
 [ext_resource type="Script" path="res://Scripts/LeverSwitchAnimator.cs" id="6_4qkeb"]
+[ext_resource type="Texture2D" uid="uid://csptbfmi6kdix" path="res://Textures/heat_icon.png" id="6_e77wg"]
 [ext_resource type="ArrayMesh" uid="uid://bltf4m1lfo6av" path="res://Models/asteroid4.res" id="6_q4wka"]
 [ext_resource type="Texture2D" uid="uid://l05gxks7odyr" path="res://Textures/stone.png" id="7_tyo82"]
+[ext_resource type="Texture2D" uid="uid://cyhbuwgaswjo8" path="res://Textures/firerate_icon.png" id="7_wc3s0"]
+[ext_resource type="Texture2D" uid="uid://d2ehi3idkkhow" path="res://Textures/cooling_icon.png" id="8_bhdva"]
 
 [sub_resource type="TextMesh" id="TextMesh_enrxf"]
 material = ExtResource("5_j5r8a")
@@ -71,6 +75,54 @@ height = 0.5
 
 [sub_resource type="BoxMesh" id="BoxMesh_8qeqp"]
 size = Vector3(0.6, 0.4, 0.1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6gfjc"]
+transparency = 1
+albedo_texture = ExtResource("5_dfppe")
+emission_enabled = true
+emission = Color(1, 0, 0.971361, 1)
+emission_energy_multiplier = 1.39
+emission_texture = ExtResource("5_dfppe")
+
+[sub_resource type="QuadMesh" id="QuadMesh_waomv"]
+material = SubResource("StandardMaterial3D_6gfjc")
+size = Vector2(0.04, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6tjsd"]
+transparency = 1
+albedo_texture = ExtResource("6_e77wg")
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 1.39
+emission_texture = ExtResource("6_e77wg")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ofrqk"]
+material = SubResource("StandardMaterial3D_6tjsd")
+size = Vector2(0.04, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dawsc"]
+transparency = 1
+albedo_texture = ExtResource("7_wc3s0")
+emission_enabled = true
+emission = Color(1, 0.999591, 0, 1)
+emission_energy_multiplier = 1.39
+emission_texture = ExtResource("7_wc3s0")
+
+[sub_resource type="QuadMesh" id="QuadMesh_mw3ah"]
+material = SubResource("StandardMaterial3D_dawsc")
+size = Vector2(0.04, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4wjmq"]
+transparency = 1
+albedo_texture = ExtResource("8_bhdva")
+emission_enabled = true
+emission = Color(0, 0.661707, 1, 1)
+emission_energy_multiplier = 1.39
+emission_texture = ExtResource("8_bhdva")
+
+[sub_resource type="QuadMesh" id="QuadMesh_dpkqt"]
+material = SubResource("StandardMaterial3D_4wjmq")
+size = Vector2(0.04, 0.04)
 
 [sub_resource type="BoxMesh" id="BoxMesh_3eyvm"]
 material = ExtResource("4_m0jk3")
@@ -152,17 +204,33 @@ skeleton = NodePath("../../../../Animations")
 [node name="Damage" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.163982, 0.115177, -0.0499866)
 
+[node name="Icon" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Damage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0569281, -7.10548e-15, 0.0149113)
+mesh = SubResource("QuadMesh_waomv")
+
 [node name="HeatPerShot" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0741821, 0.115177, -0.0499866)
 changeLevelKey = 69
+
+[node name="Icon" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/HeatPerShot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0569281, -7.10548e-15, 0.0149113)
+mesh = SubResource("QuadMesh_ofrqk")
 
 [node name="FireRate" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.163982, -0.021, -0.0499866)
 changeLevelKey = 83
 
+[node name="Icon" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/FireRate"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0569281, -7.10548e-15, 0.0149113)
+mesh = SubResource("QuadMesh_mw3ah")
+
 [node name="HeatReduction" parent="Arm1/Arm2/Panel/Background" instance=ExtResource("3_bdtak")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.0741821, -0.021, -0.0499866)
 changeLevelKey = 68
+
+[node name="Icon" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/HeatReduction"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0569281, -7.10548e-15, 0.0149113)
+mesh = SubResource("QuadMesh_dpkqt")
 
 [node name="AsteroidCount" type="Node3D" parent="Arm1/Arm2/Panel/Background"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.00910801, -0.127, -0.05)
