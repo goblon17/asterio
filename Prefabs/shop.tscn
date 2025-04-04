@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://6rqqm4kr8myh"]
+[gd_scene load_steps=50 format=3 uid="uid://6rqqm4kr8myh"]
 
 [ext_resource type="Script" path="res://Scripts/ShopPanel.cs" id="1_niylr"]
 [ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="2_1hn4w"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://l05gxks7odyr" path="res://Textures/stone.png" id="7_tyo82"]
 [ext_resource type="Texture2D" uid="uid://cyhbuwgaswjo8" path="res://Textures/firerate_icon.png" id="7_wc3s0"]
 [ext_resource type="Texture2D" uid="uid://d2ehi3idkkhow" path="res://Textures/cooling_icon.png" id="8_bhdva"]
+[ext_resource type="Texture2D" uid="uid://bcdkqq73wm0i" path="res://Textures/health_icon.png" id="13_5jlf8"]
+[ext_resource type="Script" path="res://Scripts/HealCounter.cs" id="13_84n55"]
+[ext_resource type="Script" path="res://Scripts/LightControler.cs" id="14_f7bdt"]
+[ext_resource type="Script" path="res://Scripts/HealButton.cs" id="15_0w326"]
 
 [sub_resource type="TextMesh" id="TextMesh_enrxf"]
 material = ExtResource("5_j5r8a")
@@ -157,6 +161,62 @@ height = 0.09
 albedo_color = Color(0.723897, 1, 0.884429, 1)
 albedo_texture = ExtResource("7_tyo82")
 
+[sub_resource type="BoxMesh" id="BoxMesh_gx123"]
+material = ExtResource("4_m0jk3")
+size = Vector3(0.025, 0.175, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kio3o"]
+transparency = 1
+albedo_color = Color(0.258824, 0.905882, 0, 1)
+emission_enabled = true
+emission = Color(0.258824, 0.905882, 0, 1)
+emission_energy_multiplier = 3.08
+
+[sub_resource type="SphereMesh" id="SphereMesh_qghgc"]
+material = SubResource("StandardMaterial3D_kio3o")
+radius = 0.006
+height = 0.012
+
+[sub_resource type="Gradient" id="Gradient_vaujj"]
+colors = PackedColorArray(0.22, 0.22, 0.22, 1, 0.258824, 0.905882, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_puhqb"]
+transparency = 1
+albedo_color = Color(0.258824, 0.905882, 0, 1)
+emission_enabled = true
+emission = Color(0.258824, 0.905882, 0, 1)
+emission_energy_multiplier = 3.08
+
+[sub_resource type="BoxMesh" id="BoxMesh_lpsar"]
+material = SubResource("StandardMaterial3D_puhqb")
+size = Vector3(0.025, 0.175, 0.01)
+
+[sub_resource type="TextMesh" id="TextMesh_mklg5"]
+material = ExtResource("4_m0jk3")
+text = "R"
+font_size = 32
+pixel_size = 0.001
+depth = 0.001
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1lxiw"]
+albedo_color = Color(0.136719, 0.136719, 0.136719, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_vi8ud"]
+material = SubResource("StandardMaterial3D_1lxiw")
+size = Vector3(0.06, 0.06, 0.01)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2kg8b"]
+transparency = 1
+albedo_texture = ExtResource("13_5jlf8")
+emission_enabled = true
+emission = Color(0.258824, 0.905882, 0, 1)
+emission_energy_multiplier = 1.09
+emission_texture = ExtResource("13_5jlf8")
+
+[sub_resource type="QuadMesh" id="QuadMesh_ifbcv"]
+material = SubResource("StandardMaterial3D_2kg8b")
+size = Vector2(0.04, 0.04)
+
 [node name="Shop" type="Node3D" node_paths=PackedStringArray("animationPlayer", "DamageUpgrade", "HeatPerShotUpgrade", "FireRateUpgrade", "HeatReductionUpgrade", "pointsBar")]
 transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, -0.2)
 script = ExtResource("1_niylr")
@@ -277,3 +337,69 @@ transform = Transform3D(-2, 0, -1.74846e-07, 0, 2, 0, 1.74846e-07, 0, -2, -0.002
 mesh = ExtResource("6_q4wka")
 skeleton = NodePath("../Lever")
 surface_material_override/0 = SubResource("StandardMaterial3D_tkcf8")
+
+[node name="Healing" type="Node3D" parent="Arm1/Arm2/Panel/Background"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.233068, 0.0813796, -0.05)
+
+[node name="HealCounter" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing" node_paths=PackedStringArray("upgradeIndicators", "lightControlers")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.018, 0, 0)
+mesh = SubResource("BoxMesh_gx123")
+script = ExtResource("13_84n55")
+upgradeIndicators = [NodePath("../../Damage"), NodePath("../../HeatPerShot"), NodePath("../../FireRate"), NodePath("../../HeatReduction")]
+lightControlers = [NodePath("Light1"), NodePath("Light2"), NodePath("Light3"), NodePath("Light4")]
+
+[node name="Light4" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing/HealCounter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.053, -0.007)
+mesh = SubResource("SphereMesh_qghgc")
+script = ExtResource("14_f7bdt")
+gradient = SubResource("Gradient_vaujj")
+emissionEnergyRange = Vector2(0, 3.08)
+duration = 0.2
+
+[node name="Light3" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing/HealCounter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.018, -0.007)
+mesh = SubResource("SphereMesh_qghgc")
+script = ExtResource("14_f7bdt")
+gradient = SubResource("Gradient_vaujj")
+emissionEnergyRange = Vector2(0, 3.08)
+duration = 0.2
+
+[node name="Light2" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing/HealCounter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.017, -0.007)
+mesh = SubResource("SphereMesh_qghgc")
+script = ExtResource("14_f7bdt")
+gradient = SubResource("Gradient_vaujj")
+emissionEnergyRange = Vector2(0, 3.08)
+duration = 0.2
+
+[node name="Light1" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing/HealCounter"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.052, -0.007)
+mesh = SubResource("SphereMesh_qghgc")
+script = ExtResource("14_f7bdt")
+gradient = SubResource("Gradient_vaujj")
+emissionEnergyRange = Vector2(0, 3.08)
+duration = 0.2
+
+[node name="HealButton" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing" node_paths=PackedStringArray("upgradeIndicators")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.017, 0, 0)
+mesh = SubResource("BoxMesh_lpsar")
+script = ExtResource("15_0w326")
+upgradeIndicators = [NodePath("../../Damage"), NodePath("../../HeatPerShot"), NodePath("../../FireRate"), NodePath("../../HeatReduction")]
+labelMesh = SubResource("TextMesh_mklg5")
+healKey = 82
+gradient = SubResource("Gradient_vaujj")
+emissionEnergyRange = Vector2(0, 3.08)
+duration = 0.2
+
+[node name="Label" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing/HealButton"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.000899362, -1.69407e-21, -0.007)
+mesh = SubResource("TextMesh_mklg5")
+
+[node name="IconBackground" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00151804, -0.127056, 0)
+mesh = SubResource("BoxMesh_vi8ud")
+
+[node name="Icon" type="MeshInstance3D" parent="Arm1/Arm2/Panel/Background/Healing/IconBackground"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.000481963, 5.55478e-05, -0.007)
+mesh = SubResource("QuadMesh_ifbcv")
+skeleton = NodePath("../../../Damage")
