@@ -24,7 +24,13 @@ public partial class PlayerCamera : Camera3D
 
 	private void OnReady()
 	{
-        Health.Instance.HealthChanged += (_) => ShakeCamera();
+		Health.Instance.HealthChanged += (current, old) =>
+		{
+			if (current < old)
+			{
+				ShakeCamera();
+			}
+		};
 	}
 
 	private void ShakeCamera()

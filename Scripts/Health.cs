@@ -3,16 +3,19 @@ using System;
 
 public partial class Health : Area3D
 {
+    public delegate void HealthChangedEvent(float current, float old);
+
     public static Health Instance { get; private set; }
 
-    public event Action<float> HealthChanged;
+    public event HealthChangedEvent HealthChanged;
     public float CurrentHealth
     {
         get => currentHealth;
         set
         {
+            float old = currentHealth;
             currentHealth = value;
-            HealthChanged?.Invoke(value);
+            HealthChanged?.Invoke(value, old);
         }
     }
 

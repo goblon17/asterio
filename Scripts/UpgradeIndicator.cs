@@ -77,7 +77,7 @@ public partial class UpgradeIndicator : Node3D
 
     public override void _Input(InputEvent @event)
     {
-        if (shopPanel.State != ShopPanel.ShopState.Opened)
+        if (shopPanel.State != ShopPanel.ShopState.Opened && shopPanel.State != ShopPanel.ShopState.Opening)
         {
             return;
         }
@@ -93,7 +93,7 @@ public partial class UpgradeIndicator : Node3D
             {
                 if (shiftHeld)
                 {
-                    DecreaseLevel();
+                    DecreaseLevel(true);
                 }
                 else
                 {
@@ -103,12 +103,15 @@ public partial class UpgradeIndicator : Node3D
         }
     }
 
-    private void DecreaseLevel()
+    public void DecreaseLevel(bool returnPointToShop)
     {
         if (CurrentLevel > 0)
         {
             CurrentLevel--;
-            shopPanel.ReturnPoint();
+            if (returnPointToShop)
+            {
+                shopPanel.ReturnPoint();
+            }
         }
     }
 

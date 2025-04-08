@@ -17,9 +17,9 @@ public partial class HealthPanel : MeshInstance3D
         Health.Instance.HealthChanged += OnHealthChanged;
     }
 
-    private void OnHealthChanged(float currentHealth)
+    private void OnHealthChanged(float current, float old)
     {
-        SetValue(currentHealth / PlayerStats.Instance.health);
+        SetValue(current / PlayerStats.Instance.health);
     }
 
     public void SetValue(float v)

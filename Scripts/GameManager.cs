@@ -18,9 +18,9 @@ public partial class GameManager : Node3D
         Health.Instance.HealthChanged += OnHealthChanged;
     }
 
-    private void OnHealthChanged(float currentHealth)
+    private void OnHealthChanged(float current, float old)
     {
-        if (currentHealth <= 0)
+        if (current <= 0)
         {
             CallDeferred(nameof(GameOver));
         }
