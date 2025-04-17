@@ -242,7 +242,7 @@ skeleton = NodePath("../../../..")
 
 [node name="Cockpit" type="Node3D" parent="."]
 
-[node name="Heat" parent="Cockpit" instance=ExtResource("5_6j8bg")]
+[node name="HeatPanel" parent="Cockpit" instance=ExtResource("5_6j8bg")]
 
 [node name="Health" parent="Cockpit" instance=ExtResource("6_i66um")]
 

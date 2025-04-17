@@ -5,6 +5,8 @@ public partial class ShopPanel : Node3D
 {
     public enum ShopState { Closing, Closed, Opening, Opened }
 
+    public static ShopPanel Instance { get; private set; }
+
     [Export]
     private AnimationPlayer animationPlayer;
     [Export]
@@ -24,11 +26,23 @@ public partial class ShopPanel : Node3D
     [Export]
     private Node3D pointsBar;
 
+    public event Action PointsDisplayUpdated;
+
     public ShopState State { get; private set; }
 
     private PlayerStats playerStats;
 
-    private int availablePoints;
+    public int AvailablePoints { get; private set; }
+
+    public override void _EnterTree()
+    {
+        Instance = this;
+    }
+
+    public override void _ExitTree()
+    {
+        Instance = null;
+    }
 
     public override void _Ready()
     {
@@ -36,14 +50,14 @@ public partial class ShopPanel : Node3D
         playerStats = PlayerStats.Instance;
         playerStats.LevelIncreased += OnPlayerLevelIncreased;
         playerStats.LevelProgressChanged += UpdateLevelProgress;
-        availablePoints = playerStats.CurrentLevelPoints;
+        AvailablePoints = playerStats.CurrentLevelPoints;
         UpdatePointsDisplay();
         UpdateLevelProgress();
     }
 
     private void OnPlayerLevelIncreased()
     {
-        availablePoints++;
+        AvailablePoints++;
         UpdatePointsDisplay();
     }
 
@@ -86,9 +100,9 @@ public partial class ShopPanel : Node3D
 
     public bool TryGetPoint()
     {
-        if (availablePoints > 0)
+        if (AvailablePoints > 0)
         {
-            availablePoints--;
+            AvailablePoints--;
             UpdatePointsDisplay();
             return true;
         }
@@ -97,16 +111,17 @@ public partial class ShopPanel : Node3D
 
     public void ReturnPoint()
     {
-        if (availablePoints < playerStats.CurrentLevelPoints)
+        if (AvailablePoints < playerStats.CurrentLevelPoints)
         {
-            availablePoints++;
+            AvailablePoints++;
             UpdatePointsDisplay();
         }
     }
 
     private void UpdatePointsDisplay()
     {
-        pointsCount.Text = availablePoints.ToString();
+        pointsCount.Text = AvailablePoints.ToString();
+        PointsDisplayUpdated?.Invoke();
     }
 
     private void UpdateLevelProgress()
