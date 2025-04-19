@@ -4,33 +4,35 @@ using System;
 public partial class HeatPanel : MeshInstance3D
 {
 	[Export]
-	private Gradient gradient;
-	[Export]
-	private MeshInstance3D heatFill;
+	private PanelBar damageBar;
+    [Export]
+    private PanelBar firerateBar;
+    [Export]
+    private PanelBar heatBar;
+    [Export]
+    private PanelBar coolBar;
 
     public override void _Ready()
     {
+        damageBar.Value = 0;
+        firerateBar.Value = 0;
+        heatBar.Value = 0;
+        coolBar.Value = 0;
+
         CallDeferred(nameof(OnReady));
     }
 
     private void OnReady()
     {
-        SetValue(Player.Instance.CurrentHeat);
-        Player.Instance.HeatChanged += SetValue;
+        ShopPanel shopPanel = ShopPanel.Instance;
+        shopPanel.DamageUpgrade.CurrentLevelChanged += () => SetValue(damageBar, shopPanel.DamageUpgrade);
+        shopPanel.FireRateUpgrade.CurrentLevelChanged += () => SetValue(firerateBar, shopPanel.FireRateUpgrade);
+        shopPanel.HeatPerShotUpgrade.CurrentLevelChanged += () => SetValue(heatBar, shopPanel.HeatPerShotUpgrade);
+        shopPanel.HeatReductionUpgrade.CurrentLevelChanged += () => SetValue(coolBar, shopPanel.HeatReductionUpgrade);
     }
 
-    public void SetValue(float v)
-	{
-        Node3D parent = heatFill.GetParentNode3D();
-        Vector3 scale = parent.Scale;
-		scale.X = v;
-		parent.Scale = scale;
-
-        if (heatFill.MaterialOverride is StandardMaterial3D material)
-        {
-			Color color = gradient.Sample(Mathf.Clamp(v, 0, 1));
-            material.AlbedoColor = color;
-			material.Emission = color;
-        }
+    private void SetValue(PanelBar bar, UpgradeIndicator indicator)
+    {
+        bar.Value = indicator.CurrentLevel / 4f;
     }
 }

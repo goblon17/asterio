@@ -1,10 +1,12 @@
-[gd_scene load_steps=15 format=3 uid="uid://cps8g8eic347m"]
+[gd_scene load_steps=26 format=3 uid="uid://cps8g8eic347m"]
 
 [ext_resource type="Texture2D" uid="uid://bpy0i1taywawa" path="res://Textures/metal.png" id="1_p1p52"]
 [ext_resource type="Script" path="res://Scripts/HeatPanel.cs" id="2_y8ouk"]
 [ext_resource type="Material" uid="uid://4w4nb5f0eegw" path="res://Resources/Materials/black_material.material" id="3_ta807"]
 [ext_resource type="Material" uid="uid://dng3rn2wh1fec" path="res://Resources/Materials/white_meterial.material" id="4_gv8at"]
 [ext_resource type="Script" path="res://Scripts/LevelCounter.cs" id="4_n8vc3"]
+[ext_resource type="Script" path="res://Scripts/Heat.cs" id="4_y4tx6"]
+[ext_resource type="Script" path="res://Scripts/PanelBar.cs" id="6_uu816"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rb00w"]
 albedo_texture = ExtResource("1_p1p52")
@@ -14,12 +16,12 @@ uv1_scale = Vector3(0.73, 0.135, 1.802)
 [sub_resource type="BoxMesh" id="BoxMesh_y5avs"]
 size = Vector3(0.25, 0.1, 0.02)
 
+[sub_resource type="QuadMesh" id="QuadMesh_0orix"]
+size = Vector2(0.2, 0.02)
+
 [sub_resource type="Gradient" id="Gradient_ivlqw"]
 offsets = PackedFloat32Array(0.208609, 0.360927, 0.60596, 0.745033)
 colors = PackedColorArray(0, 1, 0, 1, 1, 0.933011, 0, 1, 1, 0.490429, 0.0167694, 1, 1, 0, 0.0353518, 1)
-
-[sub_resource type="QuadMesh" id="QuadMesh_0orix"]
-size = Vector2(0.2, 0.02)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ymudu"]
 albedo_color = Color(1, 0.0347095, 0, 1)
@@ -42,28 +44,74 @@ depth = 0.001
 
 [sub_resource type="QuadMesh" id="QuadMesh_lco23"]
 material = ExtResource("4_gv8at")
-size = Vector2(0.007, 0.033)
+size = Vector2(0.007, 0.032)
 
-[node name="HeatPanel" type="MeshInstance3D" node_paths=PackedStringArray("heatFill")]
+[sub_resource type="QuadMesh" id="QuadMesh_fqpr1"]
+material = ExtResource("3_ta807")
+size = Vector2(0.014, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xa4p5"]
+albedo_color = Color(1, 0, 0.971361, 1)
+emission_enabled = true
+emission = Color(1, 0, 0.971361, 1)
+emission_energy_multiplier = 1.39
+
+[sub_resource type="QuadMesh" id="QuadMesh_s60wh"]
+material = SubResource("StandardMaterial3D_xa4p5")
+size = Vector2(0.007, 0.032)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hpg5t"]
+albedo_color = Color(1, 0.999591, 0, 1)
+emission_enabled = true
+emission = Color(1, 0.999591, 0, 1)
+emission_energy_multiplier = 1.39
+
+[sub_resource type="QuadMesh" id="QuadMesh_8pxtq"]
+material = SubResource("StandardMaterial3D_hpg5t")
+size = Vector2(0.007, 0.032)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5j6di"]
+albedo_color = Color(1, 0, 0, 1)
+emission_enabled = true
+emission = Color(1, 0, 0, 1)
+emission_energy_multiplier = 1.39
+
+[sub_resource type="QuadMesh" id="QuadMesh_qi8jm"]
+material = SubResource("StandardMaterial3D_5j6di")
+size = Vector2(0.007, 0.032)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uvdcy"]
+albedo_color = Color(0, 0.661707, 1, 1)
+emission_enabled = true
+emission = Color(0, 0.661707, 1, 1)
+emission_energy_multiplier = 1.39
+
+[sub_resource type="QuadMesh" id="QuadMesh_ihbxl"]
+material = SubResource("StandardMaterial3D_uvdcy")
+size = Vector2(0.007, 0.032)
+
+[node name="HeatPanel" type="MeshInstance3D" node_paths=PackedStringArray("damageBar", "firerateBar", "heatBar", "coolBar")]
 transform = Transform3D(-0.763238, 0.199661, -0.614495, 0, 0.951057, 0.309016, 0.646118, 0.235853, -0.725882, 0.357671, -0.216957, 0.446568)
 material_override = SubResource("StandardMaterial3D_rb00w")
 mesh = SubResource("BoxMesh_y5avs")
 script = ExtResource("2_y8ouk")
-gradient = SubResource("Gradient_ivlqw")
-heatFill = NodePath("Heat/FillContainer/Fill")
+damageBar = NodePath("DamageBar")
+firerateBar = NodePath("FirerateBar")
+heatBar = NodePath("HeatBar")
+coolBar = NodePath("CoolBar")
 
-[node name="Heat" type="Node3D" parent="."]
-transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, -0.000354856, -0.0261977, 0.0102047)
-
-[node name="Background" type="MeshInstance3D" parent="Heat"]
-transform = Transform3D(1, 0, -2.98023e-08, -1.49012e-08, 1, 0, -2.98023e-08, 0, 1, 0, 0, 0)
+[node name="Heat" type="MeshInstance3D" parent="." node_paths=PackedStringArray("anchor", "fill")]
+transform = Transform3D(1, 0, -2.98023e-08, -1.49012e-08, 1, 0, -2.98023e-08, 0, 1, -0.000354856, -0.0261977, 0.0102047)
 material_override = ExtResource("3_ta807")
 cast_shadow = 0
 mesh = SubResource("QuadMesh_0orix")
-skeleton = NodePath("../..")
+script = ExtResource("4_y4tx6")
+gradient = SubResource("Gradient_ivlqw")
+anchor = NodePath("FillContainer")
+fill = NodePath("FillContainer/Fill")
 
 [node name="FillContainer" type="Node3D" parent="Heat"]
-transform = Transform3D(1, 0, -2.98023e-08, -1.49012e-08, 1, 0, -2.98023e-08, 0, 1, -0.0966451, 0.000497602, 0.000795364)
+transform = Transform3D(1, 0, -2.98023e-08, -2.98023e-08, 1, -1.49012e-08, -2.98023e-08, 0, 1, -0.0966451, 0.000497602, 0.000795305)
 
 [node name="Fill" type="MeshInstance3D" parent="Heat/FillContainer"]
 transform = Transform3D(1, 0, -2.98023e-08, 0, 1, 0, -2.98023e-08, 0, 1, 0.0966451, -0.000497572, -0.000145912)
@@ -84,8 +132,60 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00629281, 0.000671815, -4.
 mesh = SubResource("TextMesh_ym6y6")
 
 [node name="Bar" type="Node3D" parent="Level"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0197942, -0.0147438, 0.000388656)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.02, -0.016, 0.000449502)
 
 [node name="Fill" type="MeshInstance3D" parent="Level/Bar"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.015, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.016, 0)
 mesh = SubResource("QuadMesh_lco23")
+
+[node name="DamageBar" type="MeshInstance3D" parent="." node_paths=PackedStringArray("anchor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0329927, 0.0166163, 0.0101037)
+mesh = SubResource("QuadMesh_fqpr1")
+script = ExtResource("6_uu816")
+anchor = NodePath("Anchor")
+
+[node name="Anchor" type="Node3D" parent="DamageBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, 0)
+
+[node name="Fill" type="MeshInstance3D" parent="DamageBar/Anchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45519e-11, 0.016, 0.000215432)
+mesh = SubResource("QuadMesh_s60wh")
+
+[node name="FirerateBar" type="MeshInstance3D" parent="." node_paths=PackedStringArray("anchor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0147891, 0.0166163, 0.0101037)
+mesh = SubResource("QuadMesh_fqpr1")
+script = ExtResource("6_uu816")
+anchor = NodePath("Anchor")
+
+[node name="Anchor" type="Node3D" parent="FirerateBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, 0)
+
+[node name="Fill" type="MeshInstance3D" parent="FirerateBar/Anchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45519e-11, 0.016, 0.000215432)
+mesh = SubResource("QuadMesh_8pxtq")
+
+[node name="HeatBar" type="MeshInstance3D" parent="." node_paths=PackedStringArray("anchor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00308829, 0.0166163, 0.0101037)
+mesh = SubResource("QuadMesh_fqpr1")
+script = ExtResource("6_uu816")
+anchor = NodePath("Anchor")
+
+[node name="Anchor" type="Node3D" parent="HeatBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, 0)
+
+[node name="Fill" type="MeshInstance3D" parent="HeatBar/Anchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45519e-11, 0.016, 0.000215432)
+mesh = SubResource("QuadMesh_qi8jm")
+
+[node name="CoolBar" type="MeshInstance3D" parent="." node_paths=PackedStringArray("anchor")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0210916, 0.0166163, 0.0101037)
+mesh = SubResource("QuadMesh_fqpr1")
+script = ExtResource("6_uu816")
+anchor = NodePath("Anchor")
+
+[node name="Anchor" type="Node3D" parent="CoolBar"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, 0)
+
+[node name="Fill" type="MeshInstance3D" parent="CoolBar/Anchor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.45519e-11, 0.016, 0.000215432)
+mesh = SubResource("QuadMesh_ihbxl")

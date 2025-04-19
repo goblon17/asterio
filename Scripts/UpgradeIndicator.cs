@@ -17,9 +17,23 @@ public partial class UpgradeIndicator : Node3D
     [Export(hint: PropertyHint.Range, "0, 1")]
     private float toOneDurationPercentage;
 
+    public event Action CurrentLevelChanged;
+
     private StandardMaterial3D[] indicatorMaterials;
 
-    public int CurrentLevel { get; private set; } = 0;
+    public int CurrentLevel 
+    { 
+        get => currentLevel;
+        private set
+        {
+            if (currentLevel != value)
+            {
+                currentLevel = value;
+                CurrentLevelChanged?.Invoke();
+            }
+        }
+    }
+    private int currentLevel = 0;
 
     private ShopPanel shopPanel;
 
