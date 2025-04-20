@@ -143,6 +143,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0329927, 0.0166163, 0.0101
 mesh = SubResource("QuadMesh_fqpr1")
 script = ExtResource("6_uu816")
 anchor = NodePath("Anchor")
+speed = 2.5
 
 [node name="Anchor" type="Node3D" parent="DamageBar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, 0)
@@ -156,6 +157,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0147891, 0.0166163, 0.0101
 mesh = SubResource("QuadMesh_fqpr1")
 script = ExtResource("6_uu816")
 anchor = NodePath("Anchor")
+speed = 2.5
 
 [node name="Anchor" type="Node3D" parent="FirerateBar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, 0)
@@ -169,6 +171,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00308829, 0.0166163, 0.0101
 mesh = SubResource("QuadMesh_fqpr1")
 script = ExtResource("6_uu816")
 anchor = NodePath("Anchor")
+speed = 2.5
 
 [node name="Anchor" type="Node3D" parent="HeatBar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, 0)
@@ -182,6 +185,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0210916, 0.0166163, 0.01010
 mesh = SubResource("QuadMesh_fqpr1")
 script = ExtResource("6_uu816")
 anchor = NodePath("Anchor")
+speed = 2.5
 
 [node name="Anchor" type="Node3D" parent="CoolBar"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.016, 0)

@@ -91,10 +91,10 @@ public partial class UpgradeIndicator : Node3D
 
     public override void _Input(InputEvent @event)
     {
-        if (shopPanel.State != ShopPanel.ShopState.Opened && shopPanel.State != ShopPanel.ShopState.Opening)
-        {
-            return;
-        }
+        //if (shopPanel.State != ShopPanel.ShopState.Opened && shopPanel.State != ShopPanel.ShopState.Opening)
+        //{
+        //    return;
+        //}
 
         if (@event is InputEventKey inputKey)
         {
