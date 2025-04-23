@@ -53,9 +53,9 @@ public partial class Asteroid : RigidBody3D
 		QueueFree();
 	}
 
-	public void SetAsteroid(ArrayMesh mesh, ConcavePolygonShape3D collisionShape)
+	public void SetAsteroid(AsteroidShape shape)
 	{
-		this.mesh.Mesh = mesh;
-		this.collisionShape.Shape = collisionShape;
+		this.mesh.Mesh = shape.Mesh;
+		this.collisionShape.Shape = shape.CollisionShape;
 	}
 }

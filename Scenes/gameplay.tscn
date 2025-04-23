@@ -1,19 +1,15 @@
-[gd_scene load_steps=19 format=3 uid="uid://buix4xavg5iwb"]
+[gd_scene load_steps=15 format=3 uid="uid://buix4xavg5iwb"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_gwdgv"]
 [ext_resource type="PackedScene" uid="uid://cekoxcdqlj6ky" path="res://Prefabs/player.tscn" id="1_waas6"]
 [ext_resource type="PackedScene" uid="uid://cqug60jhp015b" path="res://Prefabs/environment.tscn" id="2_a2cno"]
-[ext_resource type="PackedScene" path="res://Prefabs/pause_screen.tscn" id="3_2sfer"]
+[ext_resource type="PackedScene" uid="uid://v073sh7rhqe0" path="res://Prefabs/pause_screen.tscn" id="3_2sfer"]
 [ext_resource type="PackedScene" uid="uid://bbc4sotu2xrpr" path="res://Prefabs/asteroid.tscn" id="3_d8cms"]
 [ext_resource type="Script" path="res://Scripts/AsteroidSpawner.cs" id="3_ic346"]
-[ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="5_clemr"]
-[ext_resource type="ArrayMesh" uid="uid://ctdrfcmehmkoy" path="res://Models/asteroid2.res" id="6_esgal"]
-[ext_resource type="ArrayMesh" uid="uid://cv1sbpc6p3inv" path="res://Models/asteroid3.res" id="7_oboxl"]
-[ext_resource type="ArrayMesh" uid="uid://bltf4m1lfo6av" path="res://Models/asteroid4.res" id="8_2mb8p"]
-[ext_resource type="Shape3D" uid="uid://bvr4qbrbkxc3y" path="res://Models/asteroid1.shape" id="9_1f0j0"]
-[ext_resource type="Shape3D" uid="uid://d26a3ddvd7m3g" path="res://Models/asteroid2.shape" id="10_2uh12"]
-[ext_resource type="Shape3D" uid="uid://c1i10m0bfiuin" path="res://Models/asteroid3.shape" id="11_vk5o5"]
-[ext_resource type="Shape3D" uid="uid://254r1vmbv1v2" path="res://Models/asteroid4.shape" id="12_6rfj8"]
+[ext_resource type="Resource" uid="uid://d33j2sccqufnc" path="res://Resources/AsteroidShapes/asteroidShape1.tres" id="7_6xla4"]
+[ext_resource type="Resource" uid="uid://c5t3q7hjgbmaw" path="res://Resources/AsteroidShapes/asteroidShape2.tres" id="8_jfsmu"]
+[ext_resource type="Resource" uid="uid://emmc2y5r2uxo" path="res://Resources/AsteroidShapes/asteroidShape3.tres" id="9_ymqwi"]
+[ext_resource type="Resource" uid="uid://1xmqbo2ukjpe" path="res://Resources/AsteroidShapes/asteroidShape4.tres" id="10_euy4c"]
 [ext_resource type="Script" path="res://Scripts/Health.cs" id="13_2ee0y"]
 [ext_resource type="AudioStream" uid="uid://d02hdppwys1ua" path="res://Sounds/Impact Sound Effect.mp3" id="16_ulptb"]
 [ext_resource type="AudioStream" uid="uid://bkqnp5jaqa7a1" path="res://Sounds/Rubble Sound Effect.mp3" id="17_hixot"]
@@ -38,8 +34,7 @@ speed = 10.0
 rotationSpeedRange = Vector2(-5, 5)
 halfExtents = Vector2(20, 10)
 asteroidPrefab = ExtResource("3_d8cms")
-possibleMehses = Array[ArrayMesh]([ExtResource("5_clemr"), ExtResource("6_esgal"), ExtResource("7_oboxl"), ExtResource("8_2mb8p")])
-possibleCollisions = Array[ConcavePolygonShape3D]([ExtResource("9_1f0j0"), ExtResource("10_2uh12"), ExtResource("11_vk5o5"), ExtResource("12_6rfj8")])
+possibleShapes = Array[Object]([ExtResource("7_6xla4"), ExtResource("8_jfsmu"), ExtResource("9_ymqwi"), ExtResource("10_euy4c")])
 
 [node name="Healthzone" type="Area3D" parent="." node_paths=PackedStringArray("audio")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -5.97452)

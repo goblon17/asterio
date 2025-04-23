@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AsteroidShape" load_steps=4 format=3 uid="uid://d33j2sccqufnc"]
+
+[ext_resource type="Shape3D" uid="uid://bvr4qbrbkxc3y" path="res://Models/asteroid1.shape" id="1_1s4cu"]
+[ext_resource type="Script" path="res://Scripts/Resources/AsteroidShape.cs" id="1_mtgrp"]
+[ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="2_yhf0f"]
+
+[resource]
+script = ExtResource("1_mtgrp")
+mesh = ExtResource("2_yhf0f")
+collisionShape = ExtResource("1_1s4cu")

@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://bbc4sotu2xrpr"]
 
-[ext_resource type="Script" path="res://Scripts/Asteroid.cs" id="1_t3c1c"]
+[ext_resource type="Script" path="res://Scripts/Asteroids/Asteroid.cs" id="1_t3c1c"]
 [ext_resource type="PackedScene" uid="uid://budvd74domoqg" path="res://Prefabs/impact_particle.tscn" id="2_od4tf"]
 [ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="3_0dcar"]
 [ext_resource type="Texture2D" uid="uid://l05gxks7odyr" path="res://Textures/stone.png" id="3_417ap"]

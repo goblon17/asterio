@@ -16,9 +16,7 @@ public partial class AsteroidSpawner : Node3D
 	[Export]
 	private PackedScene asteroidPrefab;
     [Export]
-    private ArrayMesh[] possibleMehses;
-    [Export]
-    private ConcavePolygonShape3D[] possibleCollisions;
+    private AsteroidShape[] possibleShapes;
 
     public event Action<Asteroid> AsteroidDied;
 
@@ -55,8 +53,8 @@ public partial class AsteroidSpawner : Node3D
         float z = rng.RandfRange(rotationSpeedRange.X, rotationSpeedRange.Y);
         asteroid.AngularVelocity = new Vector3(x, y, z);
 
-        int i = rng.RandiRange(0, possibleMehses.Length - 1);
-        asteroid.SetAsteroid(possibleMehses[i], possibleCollisions[i]);
+        int i = rng.RandiRange(0, possibleShapes.Length - 1);
+        asteroid.SetAsteroid(possibleShapes[i]);
         asteroid.Died += OnAsteroidDeath;
     }
 
