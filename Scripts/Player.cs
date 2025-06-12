@@ -72,7 +72,7 @@ public partial class Player : Node3D
         CurrentHeat += PlayerStats.Instance.HeatPerShot;
 
         rayCast.ForceRaycastUpdate();
-        if (rayCast.IsColliding() && rayCast.GetCollider() is Asteroid asteroid)
+        if (rayCast.IsColliding() && rayCast.GetCollider() is AsteroidBase asteroid)
         {
             asteroid.TakeDamage(PlayerStats.Instance.Damage, rayCast.GetCollisionPoint(), rayCast.GetCollisionNormal());
         }

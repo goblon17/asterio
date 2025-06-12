@@ -18,7 +18,7 @@ public partial class AsteroidSpawner : Node3D
     [Export]
     private AsteroidShape[] possibleShapes;
 
-    public event Action<Asteroid> AsteroidDied;
+    public event Action<AsteroidBase> AsteroidDied;
 
     private RandomNumberGenerator rng = new RandomNumberGenerator();
 
@@ -42,7 +42,7 @@ public partial class AsteroidSpawner : Node3D
         }
         timer = 0;
 
-        Asteroid asteroid = asteroidPrefab.Instantiate<Asteroid>();
+        AsteroidBase asteroid = asteroidPrefab.Instantiate<AsteroidBase>();
         AddChild(asteroid, forceReadableName: true);
         asteroid.Position = new Vector3(rng.RandfRange(-halfExtents.X, halfExtents.X), rng.RandfRange(-halfExtents.Y, halfExtents.Y), 0);
 
@@ -58,7 +58,7 @@ public partial class AsteroidSpawner : Node3D
         asteroid.Died += OnAsteroidDeath;
     }
 
-    private void OnAsteroidDeath(Asteroid asteroid)
+    private void OnAsteroidDeath(AsteroidBase asteroid)
     {
         GameValues.Instance.score += 1;
         AsteroidDied?.Invoke(asteroid);

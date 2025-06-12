@@ -1,18 +1,47 @@
-[gd_scene load_steps=15 format=3 uid="uid://buix4xavg5iwb"]
+[gd_scene load_steps=22 format=3 uid="uid://buix4xavg5iwb"]
 
 [ext_resource type="Script" path="res://Scripts/GameManager.cs" id="1_gwdgv"]
 [ext_resource type="PackedScene" uid="uid://cekoxcdqlj6ky" path="res://Prefabs/player.tscn" id="1_waas6"]
 [ext_resource type="PackedScene" uid="uid://cqug60jhp015b" path="res://Prefabs/environment.tscn" id="2_a2cno"]
 [ext_resource type="PackedScene" uid="uid://v073sh7rhqe0" path="res://Prefabs/pause_screen.tscn" id="3_2sfer"]
-[ext_resource type="PackedScene" uid="uid://bbc4sotu2xrpr" path="res://Prefabs/asteroid.tscn" id="3_d8cms"]
 [ext_resource type="Script" path="res://Scripts/AsteroidSpawner.cs" id="3_ic346"]
+[ext_resource type="Script" path="res://Scripts/Asteroids/StandardAsteroid.cs" id="6_igtt3"]
 [ext_resource type="Resource" uid="uid://d33j2sccqufnc" path="res://Resources/AsteroidShapes/asteroidShape1.tres" id="7_6xla4"]
+[ext_resource type="PackedScene" uid="uid://budvd74domoqg" path="res://Prefabs/impact_particle.tscn" id="7_30ysm"]
 [ext_resource type="Resource" uid="uid://c5t3q7hjgbmaw" path="res://Resources/AsteroidShapes/asteroidShape2.tres" id="8_jfsmu"]
+[ext_resource type="Shape3D" uid="uid://bvr4qbrbkxc3y" path="res://Models/asteroid1.shape" id="8_lhmsy"]
+[ext_resource type="Texture2D" uid="uid://l05gxks7odyr" path="res://Textures/stone.png" id="9_tmpjs"]
 [ext_resource type="Resource" uid="uid://emmc2y5r2uxo" path="res://Resources/AsteroidShapes/asteroidShape3.tres" id="9_ymqwi"]
+[ext_resource type="Texture2D" uid="uid://chprxosbvv3su" path="res://Textures/stone2.png" id="10_2o426"]
 [ext_resource type="Resource" uid="uid://1xmqbo2ukjpe" path="res://Resources/AsteroidShapes/asteroidShape4.tres" id="10_euy4c"]
+[ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="11_kaq76"]
 [ext_resource type="Script" path="res://Scripts/Health.cs" id="13_2ee0y"]
 [ext_resource type="AudioStream" uid="uid://d02hdppwys1ua" path="res://Sounds/Impact Sound Effect.mp3" id="16_ulptb"]
 [ext_resource type="AudioStream" uid="uid://bkqnp5jaqa7a1" path="res://Sounds/Rubble Sound Effect.mp3" id="17_hixot"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vbgs7"]
+albedo_texture = ExtResource("9_tmpjs")
+roughness_texture_channel = 4
+emission_enabled = true
+emission = Color(0.125, 0.125, 0.125, 1)
+emission_operator = 1
+emission_texture = ExtResource("9_tmpjs")
+normal_enabled = true
+normal_scale = 16.0
+normal_texture = ExtResource("10_2o426")
+
+[sub_resource type="PackedScene" id="PackedScene_k25v1"]
+_bundled = {
+"conn_count": 0,
+"conns": PackedInt32Array(),
+"editable_instances": [],
+"names": PackedStringArray("Asteroid", "gravity_scale", "linear_damp_mode", "script", "impactParticle", "health", "damage", "mesh", "collisionShape", "RigidBody3D", "CollisionShape3D", "transform", "shape", "MeshInstance3D", "material_override"),
+"node_count": 3,
+"node_paths": [],
+"nodes": PackedInt32Array(-1, -1, 9, 0, -1, 8, 1, 0, 2, 1, 3, 2, 4, 3, 5, 4, 6, 5, 1073741831, 6, 1073741832, 7, 0, 0, 0, 10, 10, -1, 2, 11, 8, 12, 9, 0, 0, 0, 13, 13, -1, 3, 11, 8, 14, 10, 7, 11, 0),
+"variants": [0.0, 1, ExtResource("6_igtt3"), ExtResource("7_30ysm"), 5.0, 1.0, NodePath("MeshInstance3D"), NodePath("CollisionShape3D"), Transform3D(100, 0, 0, 0, 100, 0, 0, 0, 100, 0, 0, 0), ExtResource("8_lhmsy"), SubResource("StandardMaterial3D_vbgs7"), ExtResource("11_kaq76")],
+"version": 3
+}
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cauil"]
 size = Vector3(100, 100, 1)
@@ -33,7 +62,7 @@ cooldown = 5.0
 speed = 10.0
 rotationSpeedRange = Vector2(-5, 5)
 halfExtents = Vector2(20, 10)
-asteroidPrefab = ExtResource("3_d8cms")
+asteroidPrefab = SubResource("PackedScene_k25v1")
 possibleShapes = Array[Object]([ExtResource("7_6xla4"), ExtResource("8_jfsmu"), ExtResource("9_ymqwi"), ExtResource("10_euy4c")])
 
 [node name="Healthzone" type="Area3D" parent="." node_paths=PackedStringArray("audio")]

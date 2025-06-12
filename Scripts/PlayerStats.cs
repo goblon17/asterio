@@ -51,7 +51,7 @@ public partial class PlayerStats : Node3D
         AsteroidSpawner.Instance.AsteroidDied += OnAsteroidDeath;
     }
 
-    private void OnAsteroidDeath(Asteroid asteroid)
+    private void OnAsteroidDeath(AsteroidBase asteroid)
     {
         destroyedAsteroids++;
         if (destroyedAsteroids >= CurrentLevelRequirement)
