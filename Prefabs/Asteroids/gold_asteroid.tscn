@@ -1,0 +1,42 @@
+[gd_scene load_steps=8 format=3 uid="uid://cx752q5fu8062"]
+
+[ext_resource type="Script" path="res://Scripts/Asteroids/GoldAsteroid.cs" id="1_3w8lv"]
+[ext_resource type="PackedScene" uid="uid://budvd74domoqg" path="res://Prefabs/impact_particle.tscn" id="2_srkwy"]
+[ext_resource type="Shape3D" uid="uid://bvr4qbrbkxc3y" path="res://Models/asteroid1.shape" id="3_xv350"]
+[ext_resource type="ArrayMesh" uid="uid://m0m58tej1wdq" path="res://Models/asteroid1.res" id="4_m20ao"]
+[ext_resource type="Texture2D" uid="uid://l05gxks7odyr" path="res://Textures/stone.png" id="5_pijmt"]
+[ext_resource type="Texture2D" uid="uid://chprxosbvv3su" path="res://Textures/stone2.png" id="6_t23ba"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_j8ouq"]
+albedo_color = Color(1, 1, 0.4, 1)
+albedo_texture = ExtResource("5_pijmt")
+roughness_texture_channel = 4
+emission_enabled = true
+emission = Color(1, 1, 0, 1)
+emission_energy_multiplier = 0.4
+emission_operator = 1
+emission_texture = ExtResource("5_pijmt")
+normal_enabled = true
+normal_scale = 16.0
+normal_texture = ExtResource("6_t23ba")
+
+[node name="Asteroid" type="RigidBody3D"]
+gravity_scale = 0.0
+linear_damp_mode = 1
+script = ExtResource("1_3w8lv")
+impactParticle = ExtResource("2_srkwy")
+targetColor = Color(1, 1, 1, 1)
+targetEmission = 16.0
+regenerateCooldown = 0.3
+regenerateSpeed = 5.0
+health = 5.0
+damage = 1.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0)
+shape = ExtResource("3_xv350")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0)
+mesh = ExtResource("4_m20ao")
+surface_material_override/0 = SubResource("StandardMaterial3D_j8ouq")

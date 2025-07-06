@@ -10,11 +10,26 @@ public abstract partial class AsteroidBase : RigidBody3D
     [Export]
     private float damage;
     [Export]
-    private MeshInstance3D mesh;
+    protected MeshInstance3D mesh;
     [Export]
     private CollisionShape3D collisionShape;
 
     public event Action<AsteroidBase> Died;
+
+    private float currentHealth;
+    protected float CurrentHealth
+    {
+        get => currentHealth;
+        set
+        {
+            currentHealth = Mathf.Min(value, health);
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+        }
+    }
+    protected float MaxHealth => health;
 
     public float Damage => damage;
 
@@ -38,10 +53,7 @@ public abstract partial class AsteroidBase : RigidBody3D
     {
         TakeDamageInternal(dmg, pos, normal);
 
-        if ((health -= dmg) <= 0)
-        {
-            Die();
-        }
+        CurrentHealth -= dmg;
     }
 
     protected abstract void TakeDamageInternal(float dmg, Vector3 pos, Vector3 normal);
