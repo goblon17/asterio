@@ -15,6 +15,8 @@ public partial class GoldAsteroid : AsteroidBase
     [Export]
     private float regenerateSpeed;
 
+    public override AsteroidType Type => AsteroidType.Gold;
+
     private StandardMaterial3D material;
 
     private Color startingColor;

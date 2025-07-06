@@ -16,6 +16,8 @@ public abstract partial class AsteroidBase : RigidBody3D
 
     public event Action<AsteroidBase> Died;
 
+    public abstract AsteroidType Type { get; }
+
     private float currentHealth;
     protected float CurrentHealth
     {

@@ -11,6 +11,8 @@ public partial class SilverAsteroid : AsteroidBase
     [Export]
     private float damageThreshold;
 
+    public override AsteroidType Type => AsteroidType.Silver;
+
     protected override bool TakeDamageInternal(float dmg, Vector3 pos, Vector3 normal)
     {
         if (dmg >= damageThreshold)
