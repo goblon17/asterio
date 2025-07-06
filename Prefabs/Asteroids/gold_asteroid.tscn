@@ -20,7 +20,7 @@ normal_enabled = true
 normal_scale = 16.0
 normal_texture = ExtResource("6_t23ba")
 
-[node name="Asteroid" type="RigidBody3D"]
+[node name="GoldAsteroid" type="RigidBody3D" node_paths=PackedStringArray("mesh", "collisionShape")]
 gravity_scale = 0.0
 linear_damp_mode = 1
 script = ExtResource("1_3w8lv")
@@ -31,6 +31,8 @@ regenerateCooldown = 0.3
 regenerateSpeed = 5.0
 health = 5.0
 damage = 1.0
+mesh = NodePath("MeshInstance3D")
+collisionShape = NodePath("CollisionShape3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(120, 0, 0, 0, 120, 0, 0, 0, 120, 0, 0, 0)

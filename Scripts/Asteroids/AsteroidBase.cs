@@ -51,12 +51,13 @@ public abstract partial class AsteroidBase : RigidBody3D
 
     public void TakeDamage(float dmg, Vector3 pos, Vector3 normal)
     {
-        TakeDamageInternal(dmg, pos, normal);
-
-        CurrentHealth -= dmg;
+        if (TakeDamageInternal(dmg, pos, normal))
+        {
+            CurrentHealth -= dmg;
+        }
     }
 
-    protected abstract void TakeDamageInternal(float dmg, Vector3 pos, Vector3 normal);
+    protected abstract bool TakeDamageInternal(float dmg, Vector3 pos, Vector3 normal);
 
     public void Die()
     {

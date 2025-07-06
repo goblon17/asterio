@@ -7,10 +7,11 @@ public partial class StandardAsteroid : AsteroidBase
     [Export]
     private PackedScene impactParticle;
 
-    protected override void TakeDamageInternal(float dmg, Vector3 pos, Vector3 normal)
+    protected override bool TakeDamageInternal(float dmg, Vector3 pos, Vector3 normal)
     {
         ImpactParticle particle = SpawnLocalObject<ImpactParticle>(impactParticle, pos, normal);
         particle.Start();
+        return true;
     }
 
     protected override void DieInternal()

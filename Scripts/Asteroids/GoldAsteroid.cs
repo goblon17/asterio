@@ -31,12 +31,13 @@ public partial class GoldAsteroid : AsteroidBase
         startingEmission = material.EmissionEnergyMultiplier;
     }
 
-    protected override void TakeDamageInternal(float dmg, Vector3 pos, Vector3 normal)
+    protected override bool TakeDamageInternal(float dmg, Vector3 pos, Vector3 normal)
     {
         ImpactParticle particle = SpawnLocalObject<ImpactParticle>(impactParticle, pos, normal);
         particle.Start();
 
         regenerateTimer = 0;
+        return true;
     }
 
     protected override void DieInternal()
