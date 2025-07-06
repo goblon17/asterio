@@ -5,8 +5,6 @@ public partial class AsteroidSpawner : Node3D
 {
     public static AsteroidSpawner Instance { get; private set; }
 
-	[Export]
-	private double cooldown;
     [Export]
     private float speed;
     [Export]
@@ -14,15 +12,25 @@ public partial class AsteroidSpawner : Node3D
     [Export]
     private Vector2 halfExtents;
 	[Export]
-	private PackedScene asteroidPrefab;
+	private PackedScene standardAsteroidPrefab;
+    [Export]
+    private PackedScene goldAsteroidPrefab;
+    [Export]
+    private PackedScene silverAsteroidPrefab;
     [Export]
     private AsteroidShape[] possibleShapes;
+    [Export]
+    private WaveConfig[] waves;
 
     public event Action<AsteroidBase> AsteroidDied;
 
     private RandomNumberGenerator rng = new RandomNumberGenerator();
 
-    private double timer = double.MaxValue;
+    private double asteroidTimer = 0;
+    private double waveTimer  = 0;
+
+    private int currentWaveIndex = 0;
+    private WaveConfig currentWave = null;
 
     public override void _EnterTree()
     {
@@ -34,13 +42,31 @@ public partial class AsteroidSpawner : Node3D
         Instance = null;
     }
 
+    public override void _Ready()
+    {
+        currentWave = waves[currentWaveIndex];
+    }
+
     public override void _Process(double delta)
     {
-        if ((timer += delta) < cooldown)
+        if ((waveTimer += delta) >= currentWave.WaveDuration)
+        {
+            waveTimer = 0;
+            currentWaveIndex++;
+            currentWave = waves[Mathf.Min(currentWaveIndex, waves.Length)];
+        }
+
+        if ((asteroidTimer += delta) < currentWave.SpawnDelay)
         {
             return;
         }
-        timer = 0;
+        asteroidTimer = 0;
+
+        PackedScene asteroidPrefab = GetRandomAsteroid();
+        if (asteroidPrefab == null)
+        {
+            return;
+        }
 
         AsteroidBase asteroid = asteroidPrefab.Instantiate<AsteroidBase>();
         AddChild(asteroid, forceReadableName: true);
@@ -56,6 +82,31 @@ public partial class AsteroidSpawner : Node3D
         int i = rng.RandiRange(0, possibleShapes.Length - 1);
         asteroid.SetAsteroid(possibleShapes[i]);
         asteroid.Died += OnAsteroidDeath;
+    }
+
+    private PackedScene GetRandomAsteroid()
+    {
+        float x = rng.Randf();
+        foreach ((AsteroidType type, float frequency) in currentWave.SpawnFrequencies)
+        {
+            x -= frequency;
+            if (x <= 0)
+            {
+                return GetAsteroidPrefab(type);
+            }
+        }
+        return null;
+    }
+
+    private PackedScene GetAsteroidPrefab(AsteroidType type)
+    {
+        return type switch
+        {
+            AsteroidType.Standard => standardAsteroidPrefab,
+            AsteroidType.Gold => goldAsteroidPrefab,
+            AsteroidType.Silver => silverAsteroidPrefab,
+            _ => null,
+        };
     }
 
     private void OnAsteroidDeath(AsteroidBase asteroid)
