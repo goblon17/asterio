@@ -34,13 +34,13 @@ public partial class Health : Area3D
 
     private void OnBodyEntered(Node3D body)
     {
-        if (body is Asteroid asteroid)
+        if (body is AsteroidBase asteroid)
         {
             OnAsteroidHit(asteroid);
         }
     }
 
-    private void OnAsteroidHit(Asteroid asteroid)
+    private void OnAsteroidHit(AsteroidBase asteroid)
     {
         CurrentHealth -= asteroid.Damage;
         foreach (var a in audio)
